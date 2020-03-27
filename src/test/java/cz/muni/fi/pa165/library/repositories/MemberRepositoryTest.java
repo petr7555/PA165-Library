@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.library.repositories;
 
-import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.Member;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -12,13 +11,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** @author Martin Páleník 359817 */
+/**
+ * @author Martin Páleník 359817
+ */
 
 public class MemberRepositoryTest {
 
@@ -36,7 +36,7 @@ public class MemberRepositoryTest {
         public void whenFindById_thenReturnMember() {
             // given
             Member martin = new Member();
-            martin.setMemberId(1);
+            martin.setId(1);
             martin.setFirstName("Martin");
             martin.setSurname("R E D A C T E D");
             martin.setLibrarian(false);
@@ -44,18 +44,18 @@ public class MemberRepositoryTest {
             entityManager.flush();
 
             // when
-            Optional<Member> found = memberRepository.findById(martin.getMemberId());
+            Optional<Member> found = memberRepository.findById(martin.getId());
 
             // then
-            assertThat(found.get().getMemberId())
-                    .isEqualTo(martin.getMemberId());
+            assertThat(found.get().getId())
+                    .isEqualTo(martin.getId());
         }
 
         @Test
         public void findAll() {
             // given
             Member martin = new Member();
-            martin.setMemberId(1);
+            martin.setId(1);
             martin.setFirstName("Martin");
             martin.setSurname("R E D A C T E D");
             martin.setLibrarian(false);
@@ -63,7 +63,7 @@ public class MemberRepositoryTest {
             entityManager.flush();
 
             Member librarian = new Member();
-            librarian.setMemberId(2);
+            librarian.setId(2);
             librarian.setFirstName("Librarian");
             librarian.setSurname("R E D A C T E D");
             librarian.setLibrarian(true);
@@ -82,7 +82,7 @@ public class MemberRepositoryTest {
         public void count() {
             // given
             Member martin = new Member();
-            martin.setMemberId(1);
+            martin.setId(1);
             martin.setFirstName("Martin");
             martin.setSurname("R E D A C T E D");
             martin.setLibrarian(false);
@@ -90,7 +90,7 @@ public class MemberRepositoryTest {
             entityManager.flush();
 
             Member librarian = new Member();
-            librarian.setMemberId(2);
+            librarian.setId(2);
             librarian.setFirstName("Librarian");
             librarian.setSurname("R E D A C T E D");
             librarian.setLibrarian(true);
@@ -105,12 +105,12 @@ public class MemberRepositoryTest {
         public void deleteById() {
             // given
             Member martin = new Member();
-            martin.setMemberId(1);
+            martin.setId(1);
             entityManager.persist(martin);
             entityManager.flush();
 
             Member librarian = new Member();
-            librarian.setMemberId(2);
+            librarian.setId(2);
             entityManager.persist(librarian);
             entityManager.flush();
 

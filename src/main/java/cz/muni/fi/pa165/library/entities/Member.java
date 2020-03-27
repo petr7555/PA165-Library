@@ -16,7 +16,7 @@ public class Member {
 
     @Id
     @GeneratedValue
-    private long memberId;
+    private long id;
     private String firstName;
     private String surname;
     private boolean isLibrarian;
@@ -24,12 +24,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     Set<SingleLoan> singleLoans;
 
-    public long getMemberId() {
-        return memberId;
+    public long getId() {
+        return id;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setId(long memberId) {
+        this.id = memberId;
     }
 
     public String getFirstName() {
