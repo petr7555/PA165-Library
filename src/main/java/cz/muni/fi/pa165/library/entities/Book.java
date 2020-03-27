@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -10,7 +11,6 @@ import java.util.Set;
 
 @Entity
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,7 +20,7 @@ public class Book {
     private String author;
 
     @OneToMany(mappedBy = "book")
-    Set<SingleLoan> singleLoans;
+    private Set<SingleLoan> singleLoans;
 
     public long getId() {
         return id;
@@ -52,5 +52,18 @@ public class Book {
 
     public void setSingleLoans(Set<SingleLoan> singleLoans) {
         this.singleLoans = singleLoans;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-/** @author Martin Páleník 359817 */
+/**
+ * @author Martin Páleník 359817
+ */
 
 @Entity
 public class Loan {
@@ -13,7 +15,7 @@ public class Loan {
     private long id;
 
     @OneToMany
-    Set<SingleLoan> loans;
+    private Set<SingleLoan> loans;
 
     public long getId() {
         return id;
@@ -28,12 +30,13 @@ public class Loan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Loan loan = (Loan) o;
-        return id == loan.id &&
-                Objects.equals(loans, loan.loans);
+        return id == loan.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, loans);
+        return Objects.hash(id);
     }
 }
+
+

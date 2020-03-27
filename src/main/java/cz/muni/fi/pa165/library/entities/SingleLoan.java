@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.library.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -14,17 +11,18 @@ import java.util.Objects;
 @Entity
 public class SingleLoan {
     @Id
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-    Book book;
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    Member member;
+    private Member member;
 
-    LocalDateTime registeredAt;
+    private LocalDateTime registeredAt;
 
     public Long getId() {
         return id;
@@ -63,14 +61,11 @@ public class SingleLoan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SingleLoan that = (SingleLoan) o;
-        return id.equals(that.id) &&
-                Objects.equals(book, that.book) &&
-                Objects.equals(member, that.member) &&
-                Objects.equals(registeredAt, that.registeredAt);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, member, registeredAt);
+        return Objects.hash(id);
     }
 }
