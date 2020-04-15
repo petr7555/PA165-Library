@@ -174,4 +174,23 @@ public class UserService {
     public long count() {
         return userRepository.count();
     }
+
+    /**
+     *
+     * @param user to authenticate
+     * @param password entered password
+     * @return if entered password is valid
+     * @throws IllegalArgumentException if user does not have any password associated with him
+     */
+    public boolean authenticate(User user, String password) {
+        if (user.getPassword() == null) {
+            throw new IllegalArgumentException("User password is null.");
+        }
+        if (password == null) {
+            return false;
+        }
+        return password.equals(user.getPassword());
+    }
+
+
 }
