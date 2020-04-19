@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
+import cz.muni.fi.pa165.library.dto.UserAuthenticateDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserFacade {
     void deleteUser(long id);
     void deleteAllUsers();
     long count();
+    boolean authenticate(UserAuthenticateDTO u);
+    boolean isLibrarian(UserDTO user);
 }

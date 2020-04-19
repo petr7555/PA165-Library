@@ -51,4 +51,41 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    //equals() and hashCode() from https://github.com/fi-muni/PA165/blob/master/eshop-api/src/main/java/cz/fi/muni/pa165/dto/UserDTO.java
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        UserDTO other = (UserDTO) o;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
