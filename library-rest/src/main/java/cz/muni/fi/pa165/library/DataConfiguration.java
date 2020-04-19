@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class DataConfiguration {
     }
 
     @Bean
-    public ApplicationRunner userInitializer(UserRepository userRepository, RoleRepository roleRepository) {
+    public ApplicationRunner userInitializer(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
         Role roleUser = new Role("ROLE_USER");
         Role roleAdmin = new Role("ROLE_ADMIN");
         roleRepository.saveAll(List.of(
@@ -38,8 +39,9 @@ public class DataConfiguration {
                 roleAdmin
         ));
         return args -> userRepository.saveAll(List.of(
-                new User("John", "Smith", "john.smith@email.cz", "john1234", Collections.singletonList(roleUser)),
-                new User("Peter", "Griffin", "peter.griffin@gmail.com", "password", List.of(roleUser, roleAdmin))
+                new User("John", "Smith", "john.smith@email.cz",
+                        encoder.encode("john1234"), Collections.singletonList(roleUser)),
+                new User("Peter", "Griffin", "peter.griffin@gmail.com", encoder.encode("password"), List.of(roleUser, roleAdmin))
         ));
     }
 }
