@@ -9,10 +9,10 @@ import java.util.Objects;
  * <p>
  * Represents single loan on FE. It connects book, user and a date when it was borrowed and returned.
  */
-public class SingleLoanDto {
+public class SingleLoanDTO {
     private long id;
-    private BookDto book;
-    private UserDto user;
+    private BookDTO book;
+    private UserDTO user;
     private LocalDateTime borrowedAt;
     private LocalDateTime returnedAt;
 
@@ -24,19 +24,19 @@ public class SingleLoanDto {
         this.id = id;
     }
 
-    public BookDto getBook() {
+    public BookDTO getBook() {
         return book;
     }
 
-    public void setBook(BookDto book) {
+    public void setBook(BookDTO book) {
         this.book = book;
     }
 
-    public UserDto getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -60,7 +60,7 @@ public class SingleLoanDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SingleLoanDto that = (SingleLoanDto) o;
+        SingleLoanDTO that = (SingleLoanDTO) o;
         return id == that.id &&
                 Objects.equals(book, that.book) &&
                 Objects.equals(user, that.user) &&

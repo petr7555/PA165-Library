@@ -8,7 +8,7 @@ import java.util.Objects;
  * <p>
  * Represents book on FE.
  */
-public class BookDto {
+public class BookDTO {
     private long id;
 
     private String title;
@@ -52,7 +52,7 @@ public class BookDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookDto bookDTO = (BookDto) o;
+        BookDTO bookDTO = (BookDTO) o;
         return id == bookDTO.id &&
                 Objects.equals(title, bookDTO.title) &&
                 Objects.equals(author, bookDTO.author);

@@ -10,9 +10,9 @@ import java.util.Objects;
  * Represents Loan, which is multiple book single loans on FE.
  * Something like "order".
  */
-public class LoanDto {
+public class LoanDTO {
     private long id;
-    private Collection<SingleLoanDto> singleLoans;
+    private Collection<SingleLoanDTO> singleLoans;
 
     public long getId() {
         return id;
@@ -22,11 +22,11 @@ public class LoanDto {
         this.id = id;
     }
 
-    public Collection<SingleLoanDto> getSingleLoans() {
+    public Collection<SingleLoanDTO> getSingleLoans() {
         return singleLoans;
     }
 
-    public void setSingleLoans(Collection<SingleLoanDto> singleLoans) {
+    public void setSingleLoans(Collection<SingleLoanDTO> singleLoans) {
         this.singleLoans = singleLoans;
     }
 
@@ -34,7 +34,7 @@ public class LoanDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LoanDto loanDTO = (LoanDto) o;
+        LoanDTO loanDTO = (LoanDTO) o;
         return id == loanDTO.id &&
                 Objects.equals(singleLoans, loanDTO.singleLoans);
     }

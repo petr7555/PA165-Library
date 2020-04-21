@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.BookDto;
+import cz.muni.fi.pa165.library.dto.BookDTO;
 
 import java.util.List;
 
@@ -11,13 +11,13 @@ import java.util.List;
  * A facade for working with BookDTOs.
  */
 public interface BookFacade {
-    long createBook(BookDto book);
+    long createBook(BookDTO book);
 
     long deleteBook(long id);
 
-    List<BookDto> findAllBooks();
+    List<BookDTO> findAllBooks();
 
-    List<BookDto> findByTitle(String title);
+    List<BookDTO> findByTitle(String title);
 
-    List<BookDto> findByAuthor(String author);
+    List<BookDTO> findByAuthor(String author);
 }

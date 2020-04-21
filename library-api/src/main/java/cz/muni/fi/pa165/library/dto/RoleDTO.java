@@ -7,7 +7,7 @@ package cz.muni.fi.pa165.library.dto;
  * Represent Role on FE.
  */
 //TODO maybe remove
-public class RoleDto {
+public class RoleDTO {
     private Long id;
 
     private String roleName;

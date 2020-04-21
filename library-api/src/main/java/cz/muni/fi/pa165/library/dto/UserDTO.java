@@ -7,14 +7,14 @@ import java.util.Objects;
  * @author Petr Janik 485122
  * @since 21.04.2020
  * <p>
- * Represents user on FE.
+ * Represents user on FE. The user has a list of his single loans.
  */
-public class UserDto {
+public class UserDTO {
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private Collection<SingleLoanDto> singleLoans;
+    private Collection<SingleLoanDTO> singleLoans;
 
     public long getId() {
         return id;
@@ -48,11 +48,11 @@ public class UserDto {
         this.email = email;
     }
 
-    public Collection<SingleLoanDto> getSingleLoans() {
+    public Collection<SingleLoanDTO> getSingleLoans() {
         return singleLoans;
     }
 
-    public void setSingleLoans(Collection<SingleLoanDto> singleLoans) {
+    public void setSingleLoans(Collection<SingleLoanDTO> singleLoans) {
         this.singleLoans = singleLoans;
     }
 
@@ -60,7 +60,7 @@ public class UserDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserDto userDto = (UserDto) o;
+        UserDTO userDto = (UserDTO) o;
         return id == userDto.id &&
                 Objects.equals(firstName, userDto.firstName) &&
                 Objects.equals(lastName, userDto.lastName) &&
