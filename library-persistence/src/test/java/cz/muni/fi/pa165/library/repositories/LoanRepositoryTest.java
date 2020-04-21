@@ -15,6 +15,8 @@ import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
 import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 
 /**
  * @author Petr Janik 485122
@@ -23,7 +25,13 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 @DataJpaTest
 public class LoanRepositoryTest {
     @Autowired
-    private TestEntityManager entityManager;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private LoanRepository loanRepository;
@@ -38,12 +46,13 @@ public class LoanRepositoryTest {
     @BeforeEach
     public void setupTest() {
         Role roleUser = new Role(Role.RoleType.USER);
+        roleRepository.save(roleUser);
         animalFarm = createTestBookAnimalFarm();
         book1984 = createTestBook1984();
-        entityManager.persist(animalFarm);
-        entityManager.persist(book1984);
+        bookRepository.save(animalFarm);
+        bookRepository.save(book1984);
         user = createTestUser("John", "Doe", roleUser);
-        entityManager.persist(user);
+        userRepository.save(user);
     }
 
     /**
@@ -67,5 +76,32 @@ public class LoanRepositoryTest {
 
         assertThat(loanRepository.findAll(), containsInAnyOrder(loan));
         assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan1, singleLoan2));
+    }
+
+    @Test
+    public void deletingLoanTransitivelyDeletesSingleLoansButNotUserOrBook() {
+        SingleLoan singleLoan1 = new SingleLoan();
+        singleLoan1.setBook(animalFarm);
+        singleLoan1.setUser(user);
+        singleLoan1.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+
+        SingleLoan singleLoan2 = new SingleLoan();
+        singleLoan2.setBook(book1984);
+        singleLoan2.setUser(user);
+        singleLoan2.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+
+        Loan loan = new Loan();
+        loan.setSingleLoans(Arrays.asList(singleLoan1, singleLoan2));
+        loanRepository.save(loan);
+
+        assertThat(loanRepository.findAll(), containsInAnyOrder(loan));
+        assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan1, singleLoan2));
+
+        loanRepository.delete(loan);
+
+        assertThat(loanRepository.findAll(), is(empty()));
+        assertThat(singleLoanRepository.findAll(), is(empty()));
+        assertThat(bookRepository.findAll(), containsInAnyOrder(animalFarm, book1984));
+        assertThat(userRepository.findAll(), containsInAnyOrder(user));
     }
 }

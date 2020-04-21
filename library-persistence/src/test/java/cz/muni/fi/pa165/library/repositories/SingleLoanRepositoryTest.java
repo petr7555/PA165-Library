@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
 import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Petr Janik 485122
@@ -75,5 +77,32 @@ public class SingleLoanRepositoryTest {
         singleLoanRepository.save(singleLoan2);
 
         assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan1, singleLoan2));
+    }
+
+    @Test
+    public void bookMustNotBeNull() {
+        SingleLoan singleLoan = new SingleLoan();
+        singleLoan.setBook(null);
+        singleLoan.setUser(user);
+        singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
+    }
+
+    @Test
+    public void userMustNotBeNull() {
+        SingleLoan singleLoan = new SingleLoan();
+        singleLoan.setBook(animalFarm);
+        singleLoan.setUser(null);
+        singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
+    }
+
+    @Test
+    public void borrowedAtMustNotBeNull() {
+        SingleLoan singleLoan = new SingleLoan();
+        singleLoan.setBook(animalFarm);
+        singleLoan.setUser(user);
+        singleLoan.setBorrowedAt(null);
+        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
     }
 }
