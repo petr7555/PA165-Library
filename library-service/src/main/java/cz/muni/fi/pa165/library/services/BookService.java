@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.library.repositories.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +13,11 @@ import java.util.stream.Collectors;
 /**
  * @author Petr Janik 485122
  * @since 09.03.2020
+ *
+ * A service providing functionality to BookFacade.
+ * It interacts directly with BookRepository.
  */
 @Service
-@Transactional
 public class BookService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookService.class);
 
@@ -51,11 +52,11 @@ public class BookService {
 
     public List<Book> findByTitle(String title) {
         LOGGER.info("Finding all books containing {} in title.", title);
-        return bookRepository.findAll().stream().filter(b -> b.getTitle().contains(title)).collect(Collectors.toList());
+        return bookRepository.findAll().stream().filter(book -> book.getTitle().contains(title)).collect(Collectors.toList());
     }
 
     public List<Book> findByAuthor(String author) {
         LOGGER.info("Finding all books containing {} as an author.", author);
-        return bookRepository.findAll().stream().filter(b -> b.getAuthor().contains(author)).collect(Collectors.toList());
+        return bookRepository.findAll().stream().filter(book -> book.getAuthor().contains(author)).collect(Collectors.toList());
     }
 }

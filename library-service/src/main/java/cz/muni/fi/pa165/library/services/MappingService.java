@@ -12,6 +12,9 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 12.04.2020
+ * <p>
+ * A service for mapping objects from one class to another.
+ * In our case from DTOs to entities and vice-versa.
  */
 @Service
 public class MappingService {
@@ -20,11 +23,18 @@ public class MappingService {
 
     private final Mapper dozer;
 
-
     public MappingService(Mapper dozer) {
         this.dozer = dozer;
     }
 
+    /**
+     * Maps a collection of objects of one class to other class
+     *
+     * @param objects    objects to be mapped
+     * @param mapToClass class to which the objects will be mapped
+     * @param <T>
+     * @return a collection of converted objects
+     */
     public <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
         List<T> mappedCollection = new ArrayList<>();
         for (Object object : objects) {
@@ -34,6 +44,14 @@ public class MappingService {
         return mappedCollection;
     }
 
+    /**
+     * Maps an object of one class to other class
+     *
+     * @param object     object to be mapped
+     * @param mapToClass class to which the object will be mapped
+     * @param <T>
+     * @return converted object
+     */
     public <T> T mapTo(Object object, Class<T> mapToClass) {
         LOGGER.info("Mapping {} to {}.", object, mapToClass);
         return dozer.map(object, mapToClass);
