@@ -32,6 +32,8 @@ public class SingleLoan {
 
     private LocalDateTime returnedAt;
 
+    private String condition;
+
     public LocalDateTime getReturnedAt() {
         return returnedAt;
     }
@@ -72,6 +74,18 @@ public class SingleLoan {
         this.borrowedAt = registeredAt;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,12 +95,13 @@ public class SingleLoan {
                 Objects.equals(book, that.book) &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(borrowedAt, that.borrowedAt) &&
-                Objects.equals(returnedAt, that.returnedAt);
+                Objects.equals(returnedAt, that.returnedAt) &&
+                Objects.equals(condition, that.condition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, user, borrowedAt, returnedAt);
+        return Objects.hash(id, book, user, borrowedAt, returnedAt, condition);
     }
 
     @Override
@@ -94,8 +109,10 @@ public class SingleLoan {
         return "SingleLoan{" +
                 "id=" + id +
                 ", book=" + book +
-                ", member=" + user +
-                ", registeredAt=" + borrowedAt +
+                ", user=" + user +
+                ", borrowedAt=" + borrowedAt +
+                ", returnedAt=" + returnedAt +
+                ", condition='" + condition + '\'' +
                 '}';
     }
 }
