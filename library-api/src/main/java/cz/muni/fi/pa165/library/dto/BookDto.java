@@ -6,9 +6,9 @@ import java.util.Objects;
  * @author Petr Janik 485122
  * @since 06.04.2020
  * <p>
- * * Represent Book on FE.
+ * Represents book on FE.
  */
-public class BookDTO {
+public class BookDto {
     private long id;
 
     private String title;
@@ -52,13 +52,14 @@ public class BookDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookDTO bookDTO = (BookDTO) o;
-        return Objects.equals(title, bookDTO.title) &&
+        BookDto bookDTO = (BookDto) o;
+        return id == bookDTO.id &&
+                Objects.equals(title, bookDTO.title) &&
                 Objects.equals(author, bookDTO.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, author);
+        return Objects.hash(id, title, author);
     }
 }

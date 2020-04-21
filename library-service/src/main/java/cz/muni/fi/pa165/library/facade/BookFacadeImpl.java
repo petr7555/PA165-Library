@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.BookDto;
 import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.services.BookService;
 import cz.muni.fi.pa165.library.services.MappingService;
@@ -31,7 +31,7 @@ public class BookFacadeImpl implements BookFacade {
     }
 
     @Override
-    public long createBook(BookDTO book) {
+    public long createBook(BookDto book) {
         LOGGER.info("Creating book {}.", book);
         return bookService.createBook(mappingService.mapTo(book, Book.class));
     }
@@ -43,20 +43,20 @@ public class BookFacadeImpl implements BookFacade {
     }
 
     @Override
-    public List<BookDTO> findAllBooks() {
+    public List<BookDto> findAllBooks() {
         LOGGER.info("Finding all books.");
-        return mappingService.mapTo(bookService.findAll(), BookDTO.class);
+        return mappingService.mapTo(bookService.findAll(), BookDto.class);
     }
 
     @Override
-    public List<BookDTO> findByTitle(String title) {
+    public List<BookDto> findByTitle(String title) {
         LOGGER.info("Finding all books containing {} in title.", title);
-        return mappingService.mapTo(bookService.findByTitle(title), BookDTO.class);
+        return mappingService.mapTo(bookService.findByTitle(title), BookDto.class);
     }
 
     @Override
-    public List<BookDTO> findByAuthor(String author) {
+    public List<BookDto> findByAuthor(String author) {
         LOGGER.info("Finding all books containing {} as an author.", author);
-        return mappingService.mapTo(bookService.findByAuthor(author), BookDTO.class);
+        return mappingService.mapTo(bookService.findByAuthor(author), BookDto.class);
     }
 }
