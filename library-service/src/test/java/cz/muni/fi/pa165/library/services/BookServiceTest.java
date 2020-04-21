@@ -2,45 +2,41 @@ package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.repositories.BookRepository;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 
-/**
- * @author Katarína Hermanová
- * UČO 433511
- * Github katHermanova
- */
-//TODO cover BookService with tests
-@RunWith(SpringRunner.class)
-public class BookServiceTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
-    private Book book1;
-    private Book book2;
-    private BookService bookService;
+/**
+ * @author Petr Janik 485122
+ * @since 21.04.2020
+ */
+@SpringBootTest
+public class BookServiceTest {
 
     @Mock
     private BookRepository bookRepository;
 
-    @Before
-    public void init() {
-        bookService = new BookService(bookRepository);
-    }
+    @InjectMocks
+    private BookService bookService;
+
+    private Book book1;
+    private Book book2;
 
     @Test
     public void testFindBookByAuthorNull() {
-        Assert.assertTrue(bookService.findByAuthor(null).isEmpty());
+        assertTrue(bookService.findByAuthor(null).isEmpty());
     }
 
     @Test
     public void testFindBookByTitleNull() {
-        Assert.assertTrue(bookService.findByTitle(null).isEmpty());
+        assertTrue(bookService.findByTitle(null).isEmpty());
     }
 
     @Test
@@ -48,10 +44,10 @@ public class BookServiceTest {
         setBook1();
         String author = book1.getAuthor();
 
-        Mockito.when(bookRepository.findAll())
+        when(bookRepository.findAll())
                 .thenReturn(Arrays.asList(book1));
 
-        Assert.assertEquals(Arrays.asList(book1), bookService.findByAuthor(author));
+        assertEquals(Arrays.asList(book1), bookService.findByAuthor(author));
     }
 
     @Test
@@ -62,10 +58,10 @@ public class BookServiceTest {
         book2.setAuthor("George Orwell");
         String author = book1.getAuthor();
 
-        Mockito.when(bookRepository.findAll())
+        when(bookRepository.findAll())
                 .thenReturn(Arrays.asList(book1, book2));
 
-        Assert.assertEquals(Arrays.asList(book1, book2), bookService.findByAuthor(author));
+        assertEquals(Arrays.asList(book1, book2), bookService.findByAuthor(author));
     }
 
     @Test
@@ -73,10 +69,10 @@ public class BookServiceTest {
         setBook1();
         String title = book1.getTitle();
 
-        Mockito.when(bookRepository.findAll())
+        when(bookRepository.findAll())
                 .thenReturn(Arrays.asList(book1));
 
-        Assert.assertEquals(Arrays.asList(book1), bookService.findByTitle(title));
+        assertEquals(Arrays.asList(book1), bookService.findByTitle(title));
     }
 
     @Test
@@ -87,10 +83,10 @@ public class BookServiceTest {
         book2.setAuthor("Another Author");
         String title = book1.getTitle();
 
-        Mockito.when(bookRepository.findAll())
+        when(bookRepository.findAll())
                 .thenReturn(Arrays.asList(book1, book2));
 
-        Assert.assertEquals(Arrays.asList(book1, book2), bookService.findByTitle(title));
+        assertEquals(Arrays.asList(book1, book2), bookService.findByTitle(title));
     }
 
     private void setBook1() {

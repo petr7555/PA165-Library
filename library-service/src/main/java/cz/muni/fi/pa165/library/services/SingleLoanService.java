@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Martin Páleník 359817
- *  based on http://zetcode.com/springboot/crudrepository/
- *
- *  This represents the business logic of the
- *  loans of book or books by a member.
+/**
+ * @author Martin Páleník 359817
+ * based on http://zetcode.com/springboot/crudrepository/
+ * <p>
+ * This represents the business logic of the
+ * loans of book or books by a member.
  */
 
 @Service
@@ -23,6 +24,7 @@ public class SingleLoanService {
     /**
      * Constructor.
      * injects repository class
+     *
      * @param singleLoanRepository (required)
      */
     public SingleLoanService(SingleLoanRepository singleLoanRepository) {
@@ -51,6 +53,7 @@ public class SingleLoanService {
 
     /**
      * Deletes a specific SingleLoan with the given "id"
+     *
      * @param userId is ID of SingleLoan we are looking for
      * @throws IllegalArgumentException if "id" is less than 0
      */
@@ -62,12 +65,14 @@ public class SingleLoanService {
      * For the given user return all his loans (current or past).
      * @return list of loans for the given user
      */
-    /** @author Martin Páleník 359817 */
+    /**
+     * @author Martin Páleník 359817
+     */
     public List<SingleLoan> getLoansForUser(User user) {
 
         List<SingleLoan> usersLoans = new ArrayList<>();
 
-        for (SingleLoan singleLoan : singleLoanRepository.findAll()){
+        for (SingleLoan singleLoan : singleLoanRepository.findAll()) {
             // Note: This implementation is wrong.
             // The reason is missing equals() in User.
 

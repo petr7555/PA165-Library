@@ -5,17 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Objects;
 
-/** @author Martin Páleník 359817 */
 /**
- * This entity populates multiple SingleLoans.
- *
- * It implements the following assignment condition:
- * "Take into account that a person can borrow multiple books in a single loan."
- *
- * Although it might be useful for performance or usability
- * it is not necessary for the functionality of application as
- * the loan functionality is fully implemented by SingleLoan.
- *
+ * @author Petr Janik 485122
+ * @since 21.04.2020
+ * <p>
+ * A container for multiple SingleLoans.
  */
 @Entity
 public class Loan {
@@ -43,7 +37,6 @@ public class Loan {
         this.loans = loans;
     }
 
-    /** @author Martin Páleník 359817 */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,7 +46,6 @@ public class Loan {
                 Objects.equals(loans, loan.loans);
     }
 
-    /** @author Martin Páleník 359817 */
     @Override
     public int hashCode() {
         return Objects.hash(id, loans);

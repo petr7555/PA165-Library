@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 06.04.2020
+ * <p>
+ * A facade for working with BookDTOs.
  */
 public interface BookFacade {
     long createBook(BookDTO book);

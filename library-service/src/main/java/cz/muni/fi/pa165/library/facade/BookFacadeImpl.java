@@ -14,6 +14,8 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 06.04.2020
+ * <p>
+ * Implements methods defined in BookFacade.
  */
 @Service
 @Transactional

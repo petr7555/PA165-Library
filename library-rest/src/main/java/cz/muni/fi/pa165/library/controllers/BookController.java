@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * @author Petr Janik 485122
+ * @since 21.04.2020
+ * <p>
+ * A controller for endpoints related to BookDTO.
+ */
 @RestController
 @Transactional
 public class BookController extends AbstractController {

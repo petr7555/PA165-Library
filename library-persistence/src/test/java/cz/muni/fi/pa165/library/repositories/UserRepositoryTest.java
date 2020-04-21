@@ -1,25 +1,25 @@
 package cz.muni.fi.pa165.library.repositories;
 
+import cz.muni.fi.pa165.library.entities.Role;
 import cz.muni.fi.pa165.library.entities.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.PersistenceException;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAndIs;
+import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * @author Martin Páleník 359817
+ * @author Petr johnik 485122
+ * @since 21.04.2020
  */
-
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class UserRepositoryTest {
 
@@ -29,66 +29,55 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private static Role roleUser;
+
+    @BeforeClass
+    public static void createRoleUser() {
+        roleUser = new Role(Role.RoleType.USER);
+    }
+
     @Test
     public void findById() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User john = createTestUser("John", "Doe", roleUser);
+        entityManager.persist(john);
 
         // then
-        assertThat(userRepository.findById(martin.getId()), isPresentAndIs(martin));
+        assertThat(userRepository.findById(john.getId()), isPresentAndIs(john));
     }
 
     @Test
     public void findAll() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User john = createTestUser("John", "Doe", roleUser);
+        entityManager.persist(john);
 
-        User librarian = createTestUserBoris();
-        entityManager.persist(librarian);
+        User boris = createTestUser("Boris", "Smith", roleUser);
+        entityManager.persist(boris);
 
-        assertThat(userRepository.findAll(), containsInAnyOrder(martin, librarian));
+        assertThat(userRepository.findAll(), containsInAnyOrder(john, boris));
     }
 
     @Test
     public void deleteById() {
         // given
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
+        User john = createTestUser("John", "Doe", roleUser);
+        entityManager.persist(john);
 
-        User librarian = createTestUserBoris();
-        entityManager.persist(librarian);
+        User boris = createTestUser("Boris", "Smith", roleUser);
+        entityManager.persist(boris);
 
-        userRepository.deleteById(librarian.getId());
+        userRepository.deleteById(boris.getId());
 
-        assertThat(userRepository.findAll(), containsInAnyOrder(martin));
+        assertThat(userRepository.findAll(), containsInAnyOrder(john));
     }
 
     @Test
-    public void testAddingUsersWithSameEmail() {
-        User martin = createTestUserMartin();
-        entityManager.persist(martin);
-        User boris = createTestUserBoris();
-        boris.setEmail(martin.getEmail());
+    public void emailMustBeUnique() {
+        User john = createTestUser("John", "Doe", roleUser);
+        entityManager.persist(john);
+        User boris = createTestUser("Boris", "Smith", roleUser);
+        boris.setEmail(john.getEmail());
         assertThrows(PersistenceException.class, () -> entityManager.persist(boris));
-    }
-
-    private User createTestUserMartin() {
-        User martin = new User();
-        martin.setFirstName("Martin");
-        martin.setLastName("Novak");
-        martin.setEmail("mail@mail.com");
-        martin.setPassword("password");
-        return martin;
-    }
-
-    private User createTestUserBoris() {
-        User boris = new User();
-        boris.setFirstName("Boris");
-        boris.setLastName("Chan");
-        boris.setEmail("boris@mail.com");
-        boris.setPassword("password");
-        return boris;
     }
 }

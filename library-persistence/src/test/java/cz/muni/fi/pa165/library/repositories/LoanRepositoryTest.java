@@ -1,29 +1,23 @@
 package cz.muni.fi.pa165.library.repositories;
 
-import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.Loan;
-import cz.muni.fi.pa165.library.entities.SingleLoan;
-import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.entities.*;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static cz.muni.fi.pa165.library.Utils.createTestUser;
 
 /**
  * @author Petr Janik 485122
  * @since 29.03.2020
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class LoanRepositoryTest {
     @Autowired
@@ -35,6 +29,13 @@ public class LoanRepositoryTest {
     @Autowired
     private SingleLoanRepository singleLoanRepository;
 
+    private static Role roleUser;
+
+    @BeforeAll
+    public static void createRoleUser() {
+        roleUser = new Role(Role.RoleType.USER);
+    }
+
     @Test
     public void createLoan() {
         Book animalFarm = createTestBookAnimalFarm();
@@ -42,19 +43,19 @@ public class LoanRepositoryTest {
         entityManager.persist(animalFarm);
         entityManager.persist(book1984);
 
-        User user = createTestUserPeter();
+        User user = createTestUser("John", "Doe", roleUser);
         entityManager.persist(user);
 
         SingleLoan singleLoan = new SingleLoan();
         singleLoan.setBook(animalFarm);
         singleLoan.setUser(user);
-        singleLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
         entityManager.persist(singleLoan);
 
         SingleLoan secondLoan = new SingleLoan();
         secondLoan.setBook(book1984);
         secondLoan.setUser(user);
-        secondLoan.setRegisteredAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        secondLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
         entityManager.persist(secondLoan);
 
         Loan loan = new Loan();
@@ -79,14 +80,5 @@ public class LoanRepositoryTest {
         book.setAuthor("George Orwell");
         book.setTitle("1984");
         return book;
-    }
-
-    private User createTestUserPeter() {
-        User user = new User();
-        user.setFirstName("Peter");
-        user.setLastName("Griffin");
-        user.setEmail("mail@mail.com");
-        user.setPassword("password");
-        return user;
     }
 }

@@ -5,6 +5,8 @@ import java.util.Objects;
 /**
  * @author Petr Janik 485122
  * @since 06.04.2020
+ * <p>
+ * * Represent Book on FE.
  */
 public class BookDTO {
     private long id;

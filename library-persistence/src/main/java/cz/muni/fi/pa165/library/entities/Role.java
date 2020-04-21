@@ -5,6 +5,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * @author Petr Janik 485122
+ * @since 06.04.2020
+ * <p>
+ * A role in the system. Currently, there is USER and ADMIN.
+ */
 @Entity
 public class Role {
     @Id
@@ -14,15 +20,26 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
 
+    public enum RoleType {
+        USER("ROLE_USER"),
+        ADMIN("ROLE_ADMIN");
+
+        private final String roleName;
+
+        RoleType(String roleName) {
+            this.roleName = roleName;
+        }
+    }
+
     @NotNull
-    @Column(name = "role_name")
+    @Column(name = "role_name", unique = true)
     private String roleName;
 
     public Role() {
     }
 
-    public Role(String roleName) {
-        this.roleName = roleName;
+    public Role(RoleType roleType) {
+        this.roleName = roleType.roleName;
     }
 
     public Long getId() {
@@ -37,8 +54,8 @@ public class Role {
         return roleName;
     }
 
-    public void setRoleName(final String name) {
-        this.roleName = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public Collection<User> getUsers() {
@@ -54,7 +71,7 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return roleName.equals(role.roleName);
+        return Objects.equals(roleName, role.roleName);
     }
 
     @Override

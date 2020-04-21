@@ -17,10 +17,18 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 12.04.2020
+ * <p>
+ * Initializes in-memory database with initial data. The data is reset after each restart of the application.
  */
 @Configuration
 public class DataConfiguration {
 
+    /**
+     * Create some books to start with.
+     *
+     * @param bookRepository
+     * @return
+     */
     @Bean
     public ApplicationRunner bookInitializer(BookRepository bookRepository) {
         return args -> bookRepository.saveAll(List.of(
@@ -30,10 +38,18 @@ public class DataConfiguration {
         ));
     }
 
+    /**
+     * Creates two users. One normal user and one admin.
+     *
+     * @param userRepository
+     * @param roleRepository
+     * @param encoder
+     * @return
+     */
     @Bean
     public ApplicationRunner userInitializer(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
-        Role roleUser = new Role("ROLE_USER");
-        Role roleAdmin = new Role("ROLE_ADMIN");
+        Role roleUser = new Role(Role.RoleType.USER);
+        Role roleAdmin = new Role(Role.RoleType.ADMIN);
         roleRepository.saveAll(List.of(
                 roleUser,
                 roleAdmin

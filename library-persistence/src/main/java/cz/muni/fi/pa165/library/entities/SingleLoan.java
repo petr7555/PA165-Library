@@ -8,6 +8,8 @@ import java.util.Objects;
 /**
  * @author Petr Janik 485122
  * @since 25.03.2020
+ * <p>
+ * Contains information about who borrowed which book, when he borrowed it and when he returned it.
  */
 @Entity
 public class SingleLoan {
@@ -26,13 +28,17 @@ public class SingleLoan {
     private User user;
 
     @NotNull
-    private LocalDateTime registeredAt;
+    private LocalDateTime borrowedAt;
 
     private LocalDateTime returnedAt;
 
-    public LocalDateTime getReturnedAt() { return returnedAt; }
+    public LocalDateTime getReturnedAt() {
+        return returnedAt;
+    }
 
-    public void setReturnedAt(LocalDateTime returnedAt) { this.returnedAt = returnedAt; }
+    public void setReturnedAt(LocalDateTime returnedAt) {
+        this.returnedAt = returnedAt;
+    }
 
     public Long getId() {
         return id;
@@ -58,12 +64,12 @@ public class SingleLoan {
         this.user = user;
     }
 
-    public LocalDateTime getRegisteredAt() {
-        return registeredAt;
+    public LocalDateTime getBorrowedAt() {
+        return borrowedAt;
     }
 
-    public void setRegisteredAt(LocalDateTime registeredAt) {
-        this.registeredAt = registeredAt;
+    public void setBorrowedAt(LocalDateTime registeredAt) {
+        this.borrowedAt = registeredAt;
     }
 
     @Override
@@ -74,13 +80,13 @@ public class SingleLoan {
         return id == that.id &&
                 Objects.equals(book, that.book) &&
                 Objects.equals(user, that.user) &&
-                Objects.equals(registeredAt, that.registeredAt) &&
+                Objects.equals(borrowedAt, that.borrowedAt) &&
                 Objects.equals(returnedAt, that.returnedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, user, registeredAt, returnedAt);
+        return Objects.hash(id, book, user, borrowedAt, returnedAt);
     }
 
     @Override
@@ -89,7 +95,7 @@ public class SingleLoan {
                 "id=" + id +
                 ", book=" + book +
                 ", member=" + user +
-                ", registeredAt=" + registeredAt +
+                ", registeredAt=" + borrowedAt +
                 '}';
     }
 }

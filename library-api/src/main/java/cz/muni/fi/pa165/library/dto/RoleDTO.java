@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.library.dto;
 /**
  * @author Petr Janik 485122
  * @since 12.04.2020
+ * <p>
+ * Represent Role on FE.
  */
 public class RoleDTO {
     private Long id;

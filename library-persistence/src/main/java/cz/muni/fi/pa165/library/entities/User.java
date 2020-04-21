@@ -4,12 +4,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
+
 /**
- * class for User entity
- *
- * @author Katarína Hermanová
- * UČO 433511
- * Github katHermanova
+ * @author Petr Janik 485122
+ * @since 21.04.2020
+ * <p>
+ * An entity the holds user's name and email (for logging in purposes) and Bcrypt encrypted password for authentication.
+ * It can have one or more of the two currently available roles: user or admin.
  */
 @Entity
 public class User {
@@ -37,6 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<SingleLoan> singleLoans;
 
+    @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Petr Janik 485122
  * @since 12.04.2020
+ * <p>
+ * Creates a Mapper bean, which is used for converting DTO to database entities and vice-versa.
  */
 @Configuration
 public class MappingConfiguration {
 
     @Bean
-    public Mapper dozer(){
+    public Mapper dozer() {
         return new DozerBeanMapper();
     }
 }

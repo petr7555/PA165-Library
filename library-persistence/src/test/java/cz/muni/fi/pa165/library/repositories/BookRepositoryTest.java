@@ -1,23 +1,20 @@
 package cz.muni.fi.pa165.library.repositories;
 
 import cz.muni.fi.pa165.library.entities.Book;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Katarína Hermanová
  * UČO 433511
  * Github katHermanova
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class BookRepositoryTest {
 
@@ -34,8 +31,8 @@ public class BookRepositoryTest {
         Book foundBook = bookRepository.findAll().get(0);
         long foundCount = bookRepository.count();
 
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(book1, foundBook);
+        assertEquals(1, foundCount);
+        assertEquals(book1, foundBook);
     }
 
     @Test
@@ -46,8 +43,8 @@ public class BookRepositoryTest {
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
-        Assert.assertEquals(2, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book1, book2));
+        assertEquals(2, foundCount);
+        assertEquals(foundBooks, Arrays.asList(book1, book2));
     }
 
     @Test
@@ -57,8 +54,8 @@ public class BookRepositoryTest {
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
-        Assert.assertEquals(2, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book1, book2));
+        assertEquals(2, foundCount);
+        assertEquals(foundBooks, Arrays.asList(book1, book2));
     }
 
     @Test
@@ -67,7 +64,7 @@ public class BookRepositoryTest {
         bookRepository.save(book1);
         long foundId = bookRepository.findById(book1.getId()).get().getId();
 
-        Assert.assertEquals(book1.getId(), foundId);
+        assertEquals(book1.getId(), foundId);
     }
 
     @Test
@@ -78,8 +75,8 @@ public class BookRepositoryTest {
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book2));
+        assertEquals(1, foundCount);
+        assertEquals(foundBooks, Arrays.asList(book2));
     }
 
     @Test
@@ -90,8 +87,8 @@ public class BookRepositoryTest {
         long foundCount = bookRepository.count();
         List<Book> foundBooks = bookRepository.findAll();
 
-        Assert.assertEquals(1, foundCount);
-        Assert.assertEquals(foundBooks, Arrays.asList(book2));
+        assertEquals(1, foundCount);
+        assertEquals(foundBooks, Arrays.asList(book2));
     }
 
     private void setBook1() {

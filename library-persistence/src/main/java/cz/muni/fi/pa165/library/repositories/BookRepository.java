@@ -8,6 +8,8 @@ import java.util.List;
 /**
  * @author Petr Janik 485122
  * @since 09.03.2020
+ * <p>
+ * A repository for Book entity.
  */
 public interface BookRepository extends CrudRepository<Book, Long> {
     List<Book> findAll();
