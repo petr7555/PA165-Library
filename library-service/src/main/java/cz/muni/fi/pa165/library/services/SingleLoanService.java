@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.library.services;
 
-import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
-import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

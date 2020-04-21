@@ -1,10 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
-import cz.muni.fi.pa165.library.dto.UserDTO;
-import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.MappingService;
 import cz.muni.fi.pa165.library.services.SingleLoanService;
 import org.slf4j.Logger;
@@ -31,12 +27,6 @@ public class SingleLoanFacadeImpl implements SingleLoanFacade {
     public SingleLoanFacadeImpl(MappingService mappingService, SingleLoanService singleLoanService) {
         this.mappingService = mappingService;
         this.singleLoanService = singleLoanService;
-    }
-
-    @Override
-    public List<SingleLoanDTO> findForUser(long userId) {
-        LOGGER.info("Finding single loans for user with id {}.", userId);
-        return mappingService.mapTo(singleLoanService.findForUser(userId), SingleLoanDTO.class);
     }
 
     @Override

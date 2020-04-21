@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * @author Petr Janik 485122
  * @since 09.03.2020
- *
+ * <p>
  * A service providing functionality to BookFacade.
  * It interacts directly with BookRepository.
  */

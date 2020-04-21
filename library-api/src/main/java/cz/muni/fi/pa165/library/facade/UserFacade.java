@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
 
 import java.util.List;

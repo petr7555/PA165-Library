@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.library.facade;
 
-import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
-import cz.muni.fi.pa165.library.dto.UserDTO;
 
 import java.util.List;
 
@@ -13,6 +11,5 @@ import java.util.List;
  * A facade for working with SingleLoanDTOs.
  */
 public interface SingleLoanFacade {
-    List<SingleLoanDTO> findForUser(long userId);
     List<SingleLoanDTO> findForBook(long bookId);
 }

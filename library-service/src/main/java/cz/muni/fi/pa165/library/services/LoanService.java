@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author Petr Janik 485122
  * @since 21.04.2020
- *
+ * <p>
  * A service providing functionality to LoanFacade.
  * It interacts directly with LoanRepository.
  */
