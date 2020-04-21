@@ -13,6 +13,6 @@ import java.util.List;
  * A facade for working with SingleLoanDTOs.
  */
 public interface SingleLoanFacade {
-    List<SingleLoanDTO> findForUser(UserDTO user);
-    List<SingleLoanDTO> findForBook(BookDTO book);
+    List<SingleLoanDTO> findForUser(long userId);
+    List<SingleLoanDTO> findForBook(long bookId);
 }

@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Main class. This class should be run when you want to run the application.
+ * Main class.
+ * This class should be run when you want to run the application.
  * It automatically picks up all configurations and fills database with initial data.
  */
 @SpringBootApplication
