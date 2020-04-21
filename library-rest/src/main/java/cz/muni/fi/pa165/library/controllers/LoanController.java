@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * A controller for endpoints related to LoanDTO.
  */
 @RestController
-@Transactional
 public class LoanController extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoanController.class);

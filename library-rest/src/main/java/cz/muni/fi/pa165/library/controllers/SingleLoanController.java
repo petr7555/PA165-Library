@@ -20,7 +20,6 @@ import java.util.List;
  * A controller for endpoints related to SingleLoanDTO.
  */
 @RestController
-@Transactional
 public class SingleLoanController extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SingleLoanController.class);

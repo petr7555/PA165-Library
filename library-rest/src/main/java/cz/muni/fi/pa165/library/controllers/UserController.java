@@ -5,12 +5,10 @@ import cz.muni.fi.pa165.library.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 
 /**
  * @author Petr Janik 485122
@@ -19,7 +17,6 @@ import java.util.List;
  * A controller for endpoints related to UserDTO.
  */
 @RestController
-@Transactional
 public class UserController extends AbstractController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
