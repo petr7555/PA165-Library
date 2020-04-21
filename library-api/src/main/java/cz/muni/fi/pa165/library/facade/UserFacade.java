@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.library.facade;
 
 import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.UserDTO;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
  * A facade for working with UserDTOs.
  */
 public interface UserFacade {
-    List<BookDTO> findAllUsers();
+    List<UserDTO> findAllUsers();
 }
