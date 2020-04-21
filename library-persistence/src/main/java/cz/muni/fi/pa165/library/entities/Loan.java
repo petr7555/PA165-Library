@@ -18,8 +18,8 @@ public class Loan {
     private long id;
 
     @NotNull
-    @OneToMany
-    private Collection<SingleLoan> loans;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<SingleLoan> singleLoans;
 
     public long getId() {
         return id;
@@ -29,12 +29,12 @@ public class Loan {
         this.id = id;
     }
 
-    public Collection<SingleLoan> getLoans() {
-        return loans;
+    public Collection<SingleLoan> getSingleLoans() {
+        return singleLoans;
     }
 
-    public void setLoans(Collection<SingleLoan> loans) {
-        this.loans = loans;
+    public void setSingleLoans(Collection<SingleLoan> loans) {
+        this.singleLoans = loans;
     }
 
     @Override
@@ -43,19 +43,19 @@ public class Loan {
         if (o == null || getClass() != o.getClass()) return false;
         Loan loan = (Loan) o;
         return id == loan.id &&
-                Objects.equals(loans, loan.loans);
+                Objects.equals(singleLoans, loan.singleLoans);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, loans);
+        return Objects.hash(id, singleLoans);
     }
 
     @Override
     public String toString() {
         return "Loan{" +
                 "id=" + id +
-                ", loans=" + loans +
+                ", loans=" + singleLoans +
                 '}';
     }
 }

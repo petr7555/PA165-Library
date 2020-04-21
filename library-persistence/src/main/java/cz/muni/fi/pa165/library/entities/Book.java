@@ -2,7 +2,9 @@ package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.annotation.Target;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author Petr Janik 485122
@@ -12,7 +14,6 @@ import java.util.Collection;
  */
 @Entity
 public class Book {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -71,8 +72,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", singleLoans=" + singleLoans +
+                ", author='" + author +
                 '}';
     }
 }

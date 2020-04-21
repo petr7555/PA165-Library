@@ -31,6 +31,7 @@ public class Role {
         }
     }
 
+//TODO difference unique
     @NotNull
     @Column(name = "role_name", unique = true)
     private String roleName;

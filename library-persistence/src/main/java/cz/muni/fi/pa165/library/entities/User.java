@@ -3,6 +3,8 @@ package cz.muni.fi.pa165.library.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -137,7 +139,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", singleLoans=" + singleLoans + '\'' +
                 ", roles=" + roles +
                 '}';
     }

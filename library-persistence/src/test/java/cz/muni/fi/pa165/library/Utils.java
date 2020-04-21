@@ -20,7 +20,7 @@ public class Utils {
         john.setLastName(lastName);
         john.setEmail(firstName + "@" + lastName + ".com");
         john.setPassword(lastName + "1234");
-        john.setRoles(Collections.singleton(role));
+        john.setRoles(Collections.singletonList(role));
         return john;
     }
 

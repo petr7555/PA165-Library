@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.library.dto;
 
-import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -14,7 +13,6 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Collection<SingleLoanDTO> singleLoans;
 
     public long getId() {
         return id;
@@ -48,13 +46,6 @@ public class UserDTO {
         this.email = email;
     }
 
-    public Collection<SingleLoanDTO> getSingleLoans() {
-        return singleLoans;
-    }
-
-    public void setSingleLoans(Collection<SingleLoanDTO> singleLoans) {
-        this.singleLoans = singleLoans;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,23 +55,21 @@ public class UserDTO {
         return id == userDto.id &&
                 Objects.equals(firstName, userDto.firstName) &&
                 Objects.equals(lastName, userDto.lastName) &&
-                Objects.equals(email, userDto.email) &&
-                Objects.equals(singleLoans, userDto.singleLoans);
+                Objects.equals(email, userDto.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, singleLoans);
+        return Objects.hash(id, firstName, lastName, email);
     }
 
     @Override
     public String toString() {
-        return "UserDto{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", singleLoans=" + singleLoans +
                 '}';
     }
 }

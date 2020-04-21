@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import org.hamcrest.CoreMatchers;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,6 +19,7 @@ import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
 import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
 import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /**
  * @author Petr Janik 485122
@@ -32,58 +34,46 @@ public class SingleLoanRepositoryTest {
     @Autowired
     private SingleLoanRepository singleLoanRepository;
 
-    private static Role roleUser;
+    private Book animalFarm;
+    private Book book1984;
+    private User user;
 
-    @BeforeClass
-    public static void createRoleUser() {
-        roleUser = new Role(Role.RoleType.USER);
+    @BeforeEach
+    public void setupTest() {
+        Role roleUser = new Role(Role.RoleType.USER);
+        animalFarm = createTestBookAnimalFarm();
+        book1984 = createTestBook1984();
+        entityManager.persist(animalFarm);
+        entityManager.persist(book1984);
+        user = createTestUser("John", "Doe", roleUser);
+        entityManager.persist(user);
     }
 
     @Test
     public void createSingleLoan() {
         SingleLoan singleLoan = new SingleLoan();
-
-        Book book = createTestBookAnimalFarm();
-        entityManager.persist(book);
-
-        User user = createTestUser("John", "Doe", roleUser);
-        entityManager.persist(user);
-
-        singleLoan.setBook(book);
+        singleLoan.setBook(animalFarm);
         singleLoan.setUser(user);
         singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        singleLoanRepository.save(singleLoan);
 
-        entityManager.persist(singleLoan);
-
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
-
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan));
+        assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan));
     }
 
     @Test
     public void multipleSingleLoansForUser() {
-        Book animalFarm = createTestBookAnimalFarm();
-        Book book1984 = createTestBook1984();
-        entityManager.persist(animalFarm);
-        entityManager.persist(book1984);
+        SingleLoan singleLoan1 = new SingleLoan();
+        singleLoan1.setBook(animalFarm);
+        singleLoan1.setUser(user);
+        singleLoan1.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        singleLoanRepository.save(singleLoan1);
 
-        User user = createTestUser("John", "Doe", roleUser);
-        entityManager.persist(user);
+        SingleLoan singleLoan2 = new SingleLoan();
+        singleLoan2.setBook(book1984);
+        singleLoan2.setUser(user);
+        singleLoan2.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
+        singleLoanRepository.save(singleLoan2);
 
-        SingleLoan singleLoan = new SingleLoan();
-        singleLoan.setBook(animalFarm);
-        singleLoan.setUser(user);
-        singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
-        entityManager.persist(singleLoan);
-
-        SingleLoan secondLoan = new SingleLoan();
-        secondLoan.setBook(book1984);
-        secondLoan.setUser(user);
-        secondLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
-        entityManager.persist(secondLoan);
-
-        List<SingleLoan> singleLoans = singleLoanRepository.findAll();
-
-        assertThat(singleLoans, CoreMatchers.hasItems(singleLoan, secondLoan));
+        assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan1, singleLoan2));
     }
 }

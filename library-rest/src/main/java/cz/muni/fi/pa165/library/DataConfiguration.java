@@ -2,15 +2,18 @@ package cz.muni.fi.pa165.library;
 
 import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.Role;
+import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.BookRepository;
 import cz.muni.fi.pa165.library.repositories.RoleRepository;
+import cz.muni.fi.pa165.library.repositories.SingleLoanRepository;
 import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
