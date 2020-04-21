@@ -29,18 +29,21 @@ public class Role {
         RoleType(String roleName) {
             this.roleName = roleName;
         }
+
+        public String getRoleName() {
+            return roleName;
+        }
     }
 
-//TODO difference unique
     @NotNull
-    @Column(name = "role_name", unique = true)
-    private String roleName;
+    @Column(name = "role_type", unique = true)
+    private RoleType roleType;
 
     public Role() {
     }
 
     public Role(RoleType roleType) {
-        this.roleName = roleType.roleName;
+        this.roleType = roleType;
     }
 
     public Long getId() {
@@ -51,12 +54,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public RoleType getRoleType() {
+        return roleType;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
     }
 
     public Collection<User> getUsers() {
@@ -72,19 +75,19 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(roleName, role.roleName);
+        return Objects.equals(roleType, role.roleType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleName);
+        return Objects.hash(roleType);
     }
 
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", roleName='" + roleName + '\'' +
+                ", roleType='" + roleType + '\'' +
                 '}';
     }
 }
