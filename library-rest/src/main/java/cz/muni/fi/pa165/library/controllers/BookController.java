@@ -29,12 +29,14 @@ public class BookController extends AbstractController {
         this.bookFacade = bookFacade;
     }
 
+    //TODO not used so far
     @PostMapping(value = "/books", consumes = MediaType.APPLICATION_JSON_VALUE)
     public long createBook(@RequestBody BookDTO book) {
         LOGGER.info("Creating book {}.", book);
         return bookFacade.createBook(book);
     }
 
+    //TODO not used so far
     @DeleteMapping(value = "/books", params = "id")
     public long deleteBook(@RequestParam long id) {
         LOGGER.info("Deleting book with id {}.", id);
