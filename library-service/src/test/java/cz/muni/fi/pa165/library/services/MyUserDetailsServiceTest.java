@@ -34,8 +34,7 @@ class MyUserDetailsServiceTest {
 
     @Test
     void userWithOneRole() {
-        Role roleUser = new Role(Role.RoleType.USER);
-        User user1 = createTestUser("John", "Doe", roleUser);
+        User user1 = createTestUser("John", "Doe");
 
         when(userRepository.findByEmail(user1.getEmail())).thenReturn(user1);
 

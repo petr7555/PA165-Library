@@ -14,6 +14,17 @@ import java.util.List;
  */
 public class Utils {
 
+    public static User createTestUser(String firstName, String lastName) {
+        Role roleUser = new Role(Role.RoleType.USER);
+        User john = new User();
+        john.setFirstName(firstName);
+        john.setLastName(lastName);
+        john.setEmail(firstName + "@" + lastName + ".com");
+        john.setPassword(lastName + "1234");
+        john.setRoles(Collections.singletonList(roleUser));
+        return john;
+    }
+
     public static User createTestUser(String firstName, String lastName, Role role) {
         User john = new User();
         john.setFirstName(firstName);

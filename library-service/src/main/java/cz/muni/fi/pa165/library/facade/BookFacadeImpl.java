@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -50,7 +51,8 @@ public class BookFacadeImpl implements BookFacade {
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
             BookDTO bookDTO = bookDTOs.get(i);
-            bookDTO.setAvailable(book.getSingleLoans().stream().anyMatch(singleLoan -> singleLoan.getReturnedAt() != null));
+            bookDTO.setAvailable(book.getSingleLoans().stream().allMatch(
+                    singleLoan -> singleLoan.getReturnedAt() == null || singleLoan.getReturnedAt().isBefore(LocalDateTime.now())));
         }
         return bookDTOs;
     }

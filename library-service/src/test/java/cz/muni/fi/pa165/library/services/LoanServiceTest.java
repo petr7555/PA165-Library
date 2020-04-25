@@ -38,8 +38,7 @@ public class LoanServiceTest {
 
     @Test
     public void createLoanWithTwoSingleLoans() {
-        Role roleUser = new Role(Role.RoleType.USER);
-        User user = createTestUser("John", "Doe", roleUser);
+        User user = createTestUser("John", "Doe");
         SingleLoan singleLoan1 = createSingleLoan(createTestBookAnimalFarm(), user);
         SingleLoan singleLoan2 = createSingleLoan(createTestBook1984(), user);
         Loan loan = createLoan(List.of(singleLoan1, singleLoan2));

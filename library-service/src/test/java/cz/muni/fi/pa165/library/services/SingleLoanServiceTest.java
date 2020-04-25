@@ -49,10 +49,9 @@ public class SingleLoanServiceTest {
         book2 = createTestBook1984();
         book2.setId(2);
 
-        Role roleUser = new Role(Role.RoleType.USER);
-        user1 = createTestUser("John", "Doe", roleUser);
+        user1 = createTestUser("John", "Doe");
         user1.setId(1);
-        User user2 = createTestUser("Boris", "Smith", roleUser);
+        User user2 = createTestUser("Boris", "Smith");
         user2.setId(2);
 
         singleLoan1 = createSingleLoan(book1, user1);

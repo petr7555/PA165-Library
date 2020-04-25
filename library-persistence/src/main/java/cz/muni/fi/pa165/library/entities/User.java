@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.library.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Objects;
 
 
 /**
@@ -115,18 +116,20 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-
-        if (!(o instanceof User))
-            return false;
-
-        User other = (User) o;
-
-        return id == other.getId();
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(singleLoans, user.singleLoans) &&
+                Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return 383;
+        return Objects.hash(id, firstName, lastName, email, password, singleLoans, roles);
     }
 
     @Override

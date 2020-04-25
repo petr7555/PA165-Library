@@ -75,12 +75,13 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(roleType, role.roleType);
+        return Objects.equals(id, role.id) &&
+                roleType == role.roleType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleType);
+        return Objects.hash(id, roleType);
     }
 
     @Override
