@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,9 @@ public class BookService {
 
     public long createBook(Book book) {
         LOGGER.info("Creating book {}.", book);
+        if (book == null) {
+            throw new IllegalArgumentException("Book must not be null.");
+        }
         book = bookRepository.save(book);
         LOGGER.info("Created book with id {}.", book.getId());
         return book.getId();
@@ -52,11 +57,11 @@ public class BookService {
 
     public List<Book> findByTitle(String title) {
         LOGGER.info("Finding all books containing {} in title.", title);
-        return bookRepository.findAll().stream().filter(book -> book.getTitle().contains(title)).collect(Collectors.toList());
+        return title == null ? Collections.emptyList() : bookRepository.findAll().stream().filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase())).collect(Collectors.toList());
     }
 
     public List<Book> findByAuthor(String author) {
         LOGGER.info("Finding all books containing {} as an author.", author);
-        return bookRepository.findAll().stream().filter(book -> book.getAuthor().contains(author)).collect(Collectors.toList());
+        return author == null ? Collections.emptyList() : bookRepository.findAll().stream().filter(book -> book.getAuthor().toLowerCase().contains(author.toLowerCase())).collect(Collectors.toList());
     }
 }

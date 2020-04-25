@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -29,6 +30,11 @@ public class RoleRepositoryTest {
         Role role = new Role(USER);
         roleRepository.save(role);
         assertThat(roleRepository.findAll(), containsInAnyOrder(role));
+    }
+
+    @Test
+    public void roleMustNotBeNull() {
+        assertThrows(InvalidDataAccessApiUsageException.class, ()->roleRepository.save(null));
     }
 
     @Test

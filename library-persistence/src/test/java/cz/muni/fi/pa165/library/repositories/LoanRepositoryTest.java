@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Petr Janik 485122
@@ -103,5 +105,10 @@ public class LoanRepositoryTest {
         assertThat(singleLoanRepository.findAll(), is(empty()));
         assertThat(bookRepository.findAll(), containsInAnyOrder(animalFarm, book1984));
         assertThat(userRepository.findAll(), containsInAnyOrder(user));
+    }
+
+    @Test
+    public void loanMustNotBeNull() {
+        assertThrows(InvalidDataAccessApiUsageException.class, ()->loanRepository.save(null));
     }
 }

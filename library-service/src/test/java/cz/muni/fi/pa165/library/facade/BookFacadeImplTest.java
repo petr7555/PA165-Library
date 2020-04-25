@@ -7,15 +7,6 @@ import org.junit.jupiter.api.Test;
  * @since 12.04.2020
  */
 class BookFacadeImplTest {
-
-    @Test
-    void createBook() {
-    }
-
-    @Test
-    void deleteBook() {
-    }
-
     @Test
     void findAllBooks() {
     }

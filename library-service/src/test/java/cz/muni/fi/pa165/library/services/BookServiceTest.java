@@ -2,15 +2,23 @@ package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.repositories.BookRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
+import java.util.List;
 
+import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
+import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
+import static cz.muni.fi.pa165.library.Utils.createTestBookGatsby;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 /**
@@ -28,70 +36,131 @@ public class BookServiceTest {
 
     private Book book1;
     private Book book2;
+    private Book book3;
+
+    @BeforeEach
+    public void setupMock() {
+        book1 = createTestBookAnimalFarm();
+        book1.setAuthor("gEOrge OrweLL");
+
+        book2 = createTestBook1984();
+
+        book3 = createTestBookGatsby();
+        book3.setTitle("The greAT GATsby");
+
+        when(bookRepository.findAll())
+                .thenReturn(List.of(book1, book2, book3));
+    }
+
+    private Book createCopyWithId(Book book, long id) {
+        Book copy = new Book();
+        copy.setId(id);
+        copy.setTitle(book.getTitle());
+        copy.setAuthor(book.getAuthor());
+        return copy;
+    }
+
+    @Test
+    public void createBooks() {
+        Book bookResult1 = createCopyWithId(book1, 1);
+        Book bookResult2 = createCopyWithId(book2, 2);
+
+        when(bookRepository.save(book1)).thenReturn(bookResult1);
+        when(bookRepository.save(book2)).thenReturn(bookResult2);
+
+        long id1 = bookService.createBook(book1);
+        assertEquals(1, id1);
+        long id2 = bookService.createBook(book2);
+        assertEquals(2, id2);
+    }
+
+    @Test
+    public void deleteBook() {
+        assertEquals(book1.getId(), bookService.deleteBook(book1.getId()));
+    }
+
+    @Test
+    public void deleteNonexistentBook() {
+        assertEquals(123, bookService.deleteBook(123));
+    }
+
+    @Test
+    public void bookMustNotBeNull() {
+        assertThrows(IllegalArgumentException.class, () -> bookService.createBook(null));
+    }
+
+    @Test
+    public void findAll() {
+        assertThat(bookService.findAll(), containsInAnyOrder(book1, book2, book3));
+    }
+
+    @Test
+    public void findBookByAuthorFull() {
+        String author = "George Orwell";
+        assertThat(bookService.findByAuthor(author), containsInAnyOrder(book1, book2));
+    }
+
+    @Test
+    public void findBookByAuthorPartial() {
+        String author = "ge Orw";
+        assertThat(bookService.findByAuthor(author), containsInAnyOrder(book1, book2));
+    }
+
+    @Test
+    public void findBookByAuthorCase() {
+        String author = "geoRGe orWELL";
+        assertThat(bookService.findByAuthor(author), containsInAnyOrder(book1, book2));
+    }
+
+    @Test
+    public void findBookByAuthorNonexistent() {
+        String author = "Does not exist";
+        assertThat(bookService.findByAuthor(author), is(empty()));
+    }
 
     @Test
     public void testFindBookByAuthorNull() {
-        assertTrue(bookService.findByAuthor(null).isEmpty());
+        assertThat(bookService.findByAuthor(null), is(empty()));
     }
 
     @Test
-    public void testFindBookByTitleNull() {
-        assertTrue(bookService.findByTitle(null).isEmpty());
+    public void findBookByAuthorEmpty() {
+        String author = "";
+        assertThat(bookService.findByAuthor(author), containsInAnyOrder(book1, book2, book3));
     }
 
     @Test
-    public void testFindBookByAuthor() {
-        setBook1();
-        String author = book1.getAuthor();
-
-        when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1));
-
-        assertEquals(Arrays.asList(book1), bookService.findByAuthor(author));
+    public void findBookByTitleFull() {
+        String title = "Animal Farm";
+        assertThat(bookService.findByTitle(title), containsInAnyOrder(book1));
     }
 
     @Test
-    public void testFindMultipleBooksByAuthor() {
-        setBook1();
-        book2 = new Book();
-        book2.setTitle("Another Title");
-        book2.setAuthor("George Orwell");
-        String author = book1.getAuthor();
-
-        when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1, book2));
-
-        assertEquals(Arrays.asList(book1, book2), bookService.findByAuthor(author));
+    public void findBookByTitlePartial() {
+        String title = "a";
+        assertThat(bookService.findByTitle(title), containsInAnyOrder(book1, book3));
     }
 
     @Test
-    public void testFindBookByTitle() {
-        setBook1();
-        String title = book1.getTitle();
-
-        when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1));
-
-        assertEquals(Arrays.asList(book1), bookService.findByTitle(title));
+    public void findBookByTitleCase() {
+        String title = "THE great GATSby";
+        assertThat(bookService.findByTitle(title), containsInAnyOrder(book3));
     }
 
     @Test
-    public void testFindMultipleBooksByTitle() {
-        setBook1();
-        book2 = new Book();
-        book2.setTitle("Animal Farm");
-        book2.setAuthor("Another Author");
-        String title = book1.getTitle();
-
-        when(bookRepository.findAll())
-                .thenReturn(Arrays.asList(book1, book2));
-
-        assertEquals(Arrays.asList(book1, book2), bookService.findByTitle(title));
+    public void findBookByTitleNonexistent() {
+        String title = "Does not exist";
+        assertThat(bookService.findByTitle(title), is(empty()));
     }
 
-    private void setBook1() {
-        book1 = new Book();
-        book1.setTitle("Animal Farm");
-        book1.setAuthor("George Orwell");
+    @Test
+    public void findBookByTitleNull() {
+        assertThat(bookService.findByTitle(null), is(empty()));
+    }
+
+    @Test
+    public void findBookByTitleEmpty() {
+        String title = "";
+        assertThat(bookService.findByTitle(title), containsInAnyOrder(book1, book2, book3));
     }
 }

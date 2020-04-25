@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
@@ -60,6 +61,11 @@ public class SingleLoanRepositoryTest {
         singleLoanRepository.save(singleLoan);
 
         assertThat(singleLoanRepository.findAll(), containsInAnyOrder(singleLoan));
+    }
+
+    @Test
+    public void singleLoanMustNotBeNull() {
+        assertThrows(InvalidDataAccessApiUsageException.class, ()->singleLoanRepository.save(null));
     }
 
     @Test

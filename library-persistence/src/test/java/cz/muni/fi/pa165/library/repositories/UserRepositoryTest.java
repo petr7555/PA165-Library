@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -39,6 +40,11 @@ public class UserRepositoryTest {
     public void createRoleUser() {
         roleUser = new Role(Role.RoleType.USER);
         roleRepository.save(roleUser);
+    }
+
+    @Test
+    public void userMustNotBeNull() {
+        assertThrows(InvalidDataAccessApiUsageException.class, ()->userRepository.save(null));
     }
 
     @Test

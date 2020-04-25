@@ -11,10 +11,8 @@ import java.util.List;
  * A facade for working with BookDTOs.
  */
 public interface BookFacade {
-    //TODO not used so far
     long createBook(BookDTO book);
 
-    //TODO not used so far
     long deleteBook(long id);
 
     List<BookDTO> findAllBooks();

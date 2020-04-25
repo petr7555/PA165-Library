@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.library.entities.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -28,6 +29,11 @@ public class BookRepositoryTest {
         Book book = createTestBookAnimalFarm();
         bookRepository.save(book);
         assertThat(bookRepository.findAll(), containsInAnyOrder(book));
+    }
+
+    @Test
+    public void bookMustNotBeNull() {
+        assertThrows(InvalidDataAccessApiUsageException.class, ()->bookRepository.save(null));
     }
 
     @Test
