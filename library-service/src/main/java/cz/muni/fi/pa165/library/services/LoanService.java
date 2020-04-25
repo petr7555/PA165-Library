@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Petr Janik 485122
  * @since 21.04.2020
@@ -25,6 +27,9 @@ public class LoanService {
 
     public long createLoan(Loan loan) {
         LOGGER.info("Creating loan {}.", loan);
+        LocalDateTime now = LocalDateTime.now();
+        LOGGER.info("Setting {} as a time of request.", now);
+        loan.getSingleLoans().forEach(singleLoan -> singleLoan.setBorrowedAt(now));
         loan = loanRepository.save(loan);
         LOGGER.info("Created loan with id {}.", loan.getId());
         return loan.getId();

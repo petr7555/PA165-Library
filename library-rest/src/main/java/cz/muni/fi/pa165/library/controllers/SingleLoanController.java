@@ -30,7 +30,7 @@ public class SingleLoanController extends AbstractController {
     }
 
     @GetMapping(value = "/singleLoans", params = "userId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SingleLoanDTO> findForUSer(@RequestParam long userId) {
+    public List<SingleLoanDTO> findForUser(@RequestParam long userId) {
         LOGGER.info("Finding single loans for user with id {}.", userId);
         return singleLoanFacade.findForUser(userId);
     }
