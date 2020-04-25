@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import static cz.muni.fi.pa165.library.Utils.*;
@@ -89,6 +88,6 @@ public class LoanRepositoryTest {
 
     @Test
     public void loanMustNotBeNull() {
-        assertThrows(InvalidDataAccessApiUsageException.class, ()->loanRepository.save(null));
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> loanRepository.save(null));
     }
 }

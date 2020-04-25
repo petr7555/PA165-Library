@@ -1,21 +1,19 @@
 package cz.muni.fi.pa165.library.services;
 
-import cz.muni.fi.pa165.library.entities.*;
+import cz.muni.fi.pa165.library.entities.Loan;
+import cz.muni.fi.pa165.library.entities.Role;
+import cz.muni.fi.pa165.library.entities.SingleLoan;
+import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.LoanRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static cz.muni.fi.pa165.library.Utils.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 /**

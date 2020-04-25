@@ -34,7 +34,7 @@ public class RoleRepositoryTest {
 
     @Test
     public void roleMustNotBeNull() {
-        assertThrows(InvalidDataAccessApiUsageException.class, ()->roleRepository.save(null));
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> roleRepository.save(null));
     }
 
     @Test

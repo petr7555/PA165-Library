@@ -33,7 +33,7 @@ public class BookRepositoryTest {
 
     @Test
     public void bookMustNotBeNull() {
-        assertThrows(InvalidDataAccessApiUsageException.class, ()->bookRepository.save(null));
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> bookRepository.save(null));
     }
 
     @Test
@@ -58,13 +58,13 @@ public class BookRepositoryTest {
     public void titleMustNotBeNull() {
         Book book = createTestBookAnimalFarm();
         book.setTitle(null);
-        assertThrows(ConstraintViolationException.class, ()->bookRepository.save(book));
+        assertThrows(ConstraintViolationException.class, () -> bookRepository.save(book));
     }
 
     @Test
     public void authorMustNotBeNull() {
         Book book = createTestBookAnimalFarm();
         book.setAuthor(null);
-        assertThrows(ConstraintViolationException.class, ()->bookRepository.save(book));
+        assertThrows(ConstraintViolationException.class, () -> bookRepository.save(book));
     }
 }

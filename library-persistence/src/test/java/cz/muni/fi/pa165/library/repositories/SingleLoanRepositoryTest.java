@@ -4,8 +4,6 @@ import cz.muni.fi.pa165.library.entities.Book;
 import cz.muni.fi.pa165.library.entities.Role;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
-import org.hamcrest.CoreMatchers;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
 import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
@@ -65,7 +62,7 @@ public class SingleLoanRepositoryTest {
 
     @Test
     public void singleLoanMustNotBeNull() {
-        assertThrows(InvalidDataAccessApiUsageException.class, ()->singleLoanRepository.save(null));
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> singleLoanRepository.save(null));
     }
 
     @Test
@@ -91,7 +88,7 @@ public class SingleLoanRepositoryTest {
         singleLoan.setBook(null);
         singleLoan.setUser(user);
         singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
-        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
+        assertThrows(ConstraintViolationException.class, () -> singleLoanRepository.save(singleLoan));
     }
 
     @Test
@@ -100,7 +97,7 @@ public class SingleLoanRepositoryTest {
         singleLoan.setBook(animalFarm);
         singleLoan.setUser(null);
         singleLoan.setBorrowedAt(LocalDateTime.of(2020, 1, 1, 12, 0));
-        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
+        assertThrows(ConstraintViolationException.class, () -> singleLoanRepository.save(singleLoan));
     }
 
     @Test
@@ -109,6 +106,6 @@ public class SingleLoanRepositoryTest {
         singleLoan.setBook(animalFarm);
         singleLoan.setUser(user);
         singleLoan.setBorrowedAt(null);
-        assertThrows(ConstraintViolationException.class, ()->singleLoanRepository.save(singleLoan));
+        assertThrows(ConstraintViolationException.class, () -> singleLoanRepository.save(singleLoan));
     }
 }

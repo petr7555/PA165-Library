@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.library.repositories;
 
 import cz.muni.fi.pa165.library.entities.Role;
 import cz.muni.fi.pa165.library.entities.User;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,9 @@ import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.hamcrest.Matchers.is;
 
 
 /**
@@ -44,7 +43,7 @@ public class UserRepositoryTest {
 
     @Test
     public void userMustNotBeNull() {
-        assertThrows(InvalidDataAccessApiUsageException.class, ()->userRepository.save(null));
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> userRepository.save(null));
     }
 
     @Test
