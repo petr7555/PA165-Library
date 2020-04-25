@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.library.services;
 
 import cz.muni.fi.pa165.library.entities.Loan;
-import cz.muni.fi.pa165.library.entities.Role;
 import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.repositories.LoanRepository;
@@ -37,11 +36,11 @@ public class LoanServiceTest {
     }
 
     @Test
-    public void createLoanWithTwoSingleLoans() {
+    public void createLoan() {
         User user = createTestUser("John", "Doe");
         SingleLoan singleLoan1 = createSingleLoan(createTestBookAnimalFarm(), user);
         SingleLoan singleLoan2 = createSingleLoan(createTestBook1984(), user);
-        Loan loan = createLoan(List.of(singleLoan1, singleLoan2));
+        Loan loan = createLoanOfSingleLoans(List.of(singleLoan1, singleLoan2));
 
         Loan loanResult = createCopyWithId(loan, 1);
 

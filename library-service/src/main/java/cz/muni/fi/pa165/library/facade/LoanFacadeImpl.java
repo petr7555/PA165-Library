@@ -31,6 +31,7 @@ public class LoanFacadeImpl implements LoanFacade {
     @Override
     public long createLoan(LoanDTO loan) {
         LOGGER.info("Creating loan {}.", loan);
-        return loanService.createLoan(mappingService.mapTo(loan, Loan.class));
+        Loan loan1 = mappingService.mapTo(loan, Loan.class);
+        return loanService.createLoan(loan1);
     }
 }

@@ -92,8 +92,6 @@ class BookFacadeImplTest {
 
         book2.setSingleLoans(List.of(book2Returned));
 
-        book3.setSingleLoans(Collections.emptyList());
-
         when(bookService.findAll()).thenReturn(List.of(book1, book2, book3));
 
         BookDTO bookDTO1 = dtoCopyOfBook(book1);
@@ -126,20 +124,5 @@ class BookFacadeImplTest {
         when(bookService.findByAuthor("george")).thenReturn(List.of(book1, book2));
 
         assertThat(bookFacadeImpl.findByAuthor("george"), containsInAnyOrder(dtoCopyOfBook(book1), dtoCopyOfBook(book2)));
-    }
-
-    private List<BookDTO> createListOfDTOs(List<Book> books) {
-        List<BookDTO> bookDTOS = new ArrayList<>();
-        for (Book book : books) {
-            bookDTOS.add(dtoCopyOfBook(book));
-        }
-        return bookDTOS;
-    }
-
-    private BookDTO dtoCopyOfBook(Book book) {
-        BookDTO bookDTO = new BookDTO();
-        bookDTO.setTitle(book.getTitle());
-        bookDTO.setAuthor(book.getAuthor());
-        return bookDTO;
     }
 }

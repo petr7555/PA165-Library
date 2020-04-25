@@ -40,11 +40,13 @@ public class SingleLoanRepositoryTest {
 
     @BeforeEach
     public void setupTest() {
+        Role roleUser = new Role(Role.RoleType.USER);
+        entityManager.persist(roleUser);
         animalFarm = createTestBookAnimalFarm();
         book1984 = createTestBook1984();
         entityManager.persist(animalFarm);
         entityManager.persist(book1984);
-        user = createTestUser("John", "Doe");
+        user = createTestUser("John", "Doe", roleUser);
         entityManager.persist(user);
     }
 

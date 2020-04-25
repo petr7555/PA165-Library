@@ -58,7 +58,7 @@ public class Utils {
         return singleLoan;
     }
 
-    public static Loan createLoan(List<SingleLoan> singleLoans) {
+    public static Loan createLoanOfSingleLoans(List<SingleLoan> singleLoans) {
         Loan loan = new Loan();
         loan.setSingleLoans(singleLoans);
         return loan;

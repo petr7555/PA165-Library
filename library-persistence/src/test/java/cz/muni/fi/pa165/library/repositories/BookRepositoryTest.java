@@ -67,4 +67,11 @@ public class BookRepositoryTest {
         book.setAuthor(null);
         assertThrows(ConstraintViolationException.class, () -> bookRepository.save(book));
     }
+
+    @Test
+    public void singleLoansMustNotBeNull() {
+        Book book = createTestBookAnimalFarm();
+        book.setSingleLoans(null);
+        assertThrows(ConstraintViolationException.class, () -> bookRepository.save(book));
+    }
 }

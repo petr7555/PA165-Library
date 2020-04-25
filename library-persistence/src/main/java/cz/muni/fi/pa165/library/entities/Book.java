@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -23,8 +24,9 @@ public class Book {
     @NotNull
     private String author;
 
+    @NotNull
     @OneToMany(mappedBy = "book")
-    private Collection<SingleLoan> singleLoans;
+    private Collection<SingleLoan> singleLoans = new ArrayList<>();
 
     public Book() {
     }

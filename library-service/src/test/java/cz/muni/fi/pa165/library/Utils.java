@@ -1,8 +1,13 @@
 package cz.muni.fi.pa165.library;
 
+import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.LoanDTO;
+import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
+import cz.muni.fi.pa165.library.dto.UserDTO;
 import cz.muni.fi.pa165.library.entities.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,9 +67,47 @@ public class Utils {
         return singleLoan;
     }
 
-    public static Loan createLoan(List<SingleLoan> singleLoans) {
+    public static Loan createLoanOfSingleLoans(List<SingleLoan> singleLoans) {
         Loan loan = new Loan();
         loan.setSingleLoans(singleLoans);
         return loan;
+    }
+
+    public static LoanDTO dtoCopyOfLoan(Loan loan) {
+        LoanDTO loanDTO = new LoanDTO();
+        List<SingleLoanDTO> singleLoanDTOs = new ArrayList<>();
+        for (SingleLoan singleLoan : loan.getSingleLoans()) {
+            singleLoanDTOs.add(dtoCopyOfSingleLoan(singleLoan));
+        }
+        loanDTO.setSingleLoans(singleLoanDTOs);
+        loanDTO.setId(loan.getId());
+        return loanDTO;
+    }
+
+    public static SingleLoanDTO dtoCopyOfSingleLoan(SingleLoan singleLoan) {
+        SingleLoanDTO singleLoanDTO = new SingleLoanDTO();
+        singleLoanDTO.setBook(dtoCopyOfBook(singleLoan.getBook()));
+        singleLoanDTO.setUser(dtoCopyOfUser(singleLoan.getUser()));
+        singleLoanDTO.setBorrowedAt(singleLoan.getBorrowedAt());
+        singleLoanDTO.setReturnedAt(singleLoan.getReturnedAt());
+        singleLoanDTO.setId(singleLoan.getId());
+        return singleLoanDTO;
+    }
+
+    public static BookDTO dtoCopyOfBook(Book book) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setAuthor(book.getAuthor());
+        bookDTO.setId(book.getId());
+        return bookDTO;
+    }
+
+    public static UserDTO dtoCopyOfUser(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setId(user.getId());
+        return userDTO;
     }
 }

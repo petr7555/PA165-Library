@@ -61,7 +61,7 @@ public class LoanRepositoryTest {
     public void createLoanWithTwoSingleLoans() {
         SingleLoan singleLoan1 = createSingleLoan(animalFarm, user, LocalDateTime.of(2020, 1, 1, 12, 0));
         SingleLoan singleLoan2 = createSingleLoan(book1984, user, LocalDateTime.of(2020, 1, 1, 12, 0));
-        Loan loan = createLoan(List.of(singleLoan1, singleLoan2));
+        Loan loan = createLoanOfSingleLoans(List.of(singleLoan1, singleLoan2));
         loanRepository.save(loan);
 
         assertThat(loanRepository.findAll(), containsInAnyOrder(loan));
@@ -72,7 +72,7 @@ public class LoanRepositoryTest {
     public void deletingLoanTransitivelyDeletesSingleLoansButNotUserOrBook() {
         SingleLoan singleLoan1 = createSingleLoan(animalFarm, user, LocalDateTime.of(2020, 1, 1, 12, 0));
         SingleLoan singleLoan2 = createSingleLoan(book1984, user, LocalDateTime.of(2020, 1, 1, 12, 0));
-        Loan loan = createLoan(List.of(singleLoan1, singleLoan2));
+        Loan loan = createLoanOfSingleLoans(List.of(singleLoan1, singleLoan2));
         loanRepository.save(loan);
 
         assertThat(loanRepository.findAll(), containsInAnyOrder(loan));
