@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
 import java.util.List;
 
 import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
@@ -90,6 +91,13 @@ public class BookServiceTest {
     @Test
     public void findAll() {
         assertThat(bookService.findAll(), containsInAnyOrder(book1, book2, book3));
+    }
+
+    @Test
+    public void findAllEmpty() {
+        when(bookRepository.findAll())
+                .thenReturn(Collections.emptyList());
+        assertThat(bookService.findAll(), is(empty()));
     }
 
     @Test

@@ -66,7 +66,7 @@ public class SingleLoanServiceTest {
 
     @Test
     public void findForBook() {
-        assertThat(singleLoanService.findForUser(book2.getId()), containsInAnyOrder(singleLoan2, singleLoan3));
+        assertThat(singleLoanService.findForBook(book2.getId()), containsInAnyOrder(singleLoan2, singleLoan3));
     }
 
     @Test

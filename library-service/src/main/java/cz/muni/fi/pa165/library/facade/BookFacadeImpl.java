@@ -45,7 +45,14 @@ public class BookFacadeImpl implements BookFacade {
     @Override
     public List<BookDTO> findAllBooks() {
         LOGGER.info("Finding all books.");
-        return mappingService.mapTo(bookService.findAll(), BookDTO.class);
+        List<Book> books = bookService.findAll();
+        List<BookDTO> bookDTOs = mappingService.mapTo(books, BookDTO.class);
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            BookDTO bookDTO = bookDTOs.get(i);
+            bookDTO.setAvailable(book.getSingleLoans().stream().anyMatch(singleLoan -> singleLoan.getReturnedAt() != null));
+        }
+        return bookDTOs;
     }
 
     @Override

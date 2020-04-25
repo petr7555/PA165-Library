@@ -38,8 +38,8 @@ public class Utils {
 
     private static Book createTestBook(String title, String author) {
         Book book = new Book();
-        book.setAuthor(title);
-        book.setTitle(author);
+        book.setTitle(title);
+        book.setAuthor(author);
         return book;
     }
 

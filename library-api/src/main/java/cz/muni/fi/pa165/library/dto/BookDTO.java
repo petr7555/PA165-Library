@@ -15,6 +15,8 @@ public class BookDTO {
 
     private String author;
 
+    private boolean available;
+
     public long getId() {
         return id;
     }
@@ -37,6 +39,14 @@ public class BookDTO {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override
