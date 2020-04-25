@@ -32,7 +32,7 @@ public class SingleLoanFacadeImpl implements SingleLoanFacade {
     @Override
     public List<SingleLoanDTO> findForUser(long userId) {
         LOGGER.info("Finding single loans for user with id {}.", userId);
-        return mappingService.mapTo(singleLoanService.findForBook(userId), SingleLoanDTO.class);
+        return mappingService.mapTo(singleLoanService.findForUser(userId), SingleLoanDTO.class);
 
     }
 

@@ -28,7 +28,7 @@ public class SingleLoanService {
 
     public List<SingleLoan> findForUser(long userId) {
         LOGGER.info("Finding single loans for user with id {}.", userId);
-        return singleLoanRepository.findAll().stream().filter(singleLoan -> singleLoan.getBook().getId() == userId).collect(Collectors.toList());
+        return singleLoanRepository.findAll().stream().filter(singleLoan -> singleLoan.getUser().getId() == userId).collect(Collectors.toList());
     }
 
     public List<SingleLoan> findForBook(long bookId) {

@@ -68,10 +68,8 @@ public class BookServiceTest {
         when(bookRepository.save(book1)).thenReturn(bookResult1);
         when(bookRepository.save(book2)).thenReturn(bookResult2);
 
-        long id1 = bookService.createBook(book1);
-        assertEquals(1, id1);
-        long id2 = bookService.createBook(book2);
-        assertEquals(2, id2);
+        assertEquals(1, bookService.createBook(book1));
+        assertEquals(2, bookService.createBook(book2));
     }
 
     @Test
