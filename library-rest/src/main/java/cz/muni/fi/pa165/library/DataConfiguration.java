@@ -57,7 +57,11 @@ public class DataConfiguration {
         return args -> userRepository.saveAll(List.of(
                 new User("John", "Smith", "john.smith@email.cz",
                         encoder.encode("john1234"), Collections.singletonList(roleUser)),
-                new User("Peter", "Griffin", "peter.griffin@gmail.com", encoder.encode("password"), List.of(roleUser, roleAdmin))
-        ));
+                new User("Peter", "Griffin", "peter.griffin@gmail.com", encoder.encode("password"), List.of(roleUser, roleAdmin)),
+                new User("Ad", "Min", "admin",
+                        encoder.encode("admin"), List.of(roleUser, roleAdmin)),
+                new User("Us", "Er", "user",
+                        encoder.encode("user"), Collections.singletonList(roleUser)))
+        );
     }
 }

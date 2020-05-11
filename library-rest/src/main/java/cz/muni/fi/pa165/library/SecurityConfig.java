@@ -1,7 +1,8 @@
-package cz.muni.fi.pa165.library.security;
+package cz.muni.fi.pa165.library;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -37,11 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/index*", "/build/static/**", "/*.js", "/*.json", "/*.ico")
+                .permitAll()
+                //TODO determine which endpoints are for user and which are for admin
+                .antMatchers("/pa165/rest/users").hasRole("ADMIN")
+                .antMatchers("/pa165/rest/*").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
+                .and().formLogin().successHandler(myAuthenticationSuccessHandler());
 
+// For DB debugging
 //        http.authorizeRequests()
 //                .antMatchers("/").permitAll()
 //                .antMatchers("/h2-console/**").permitAll();
@@ -49,6 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.headers().frameOptions().disable();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
