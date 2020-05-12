@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.library.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.muni.fi.pa165.library.dto.BookDTO;
+import cz.muni.fi.pa165.library.dto.View;
 import cz.muni.fi.pa165.library.facade.BookFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,7 @@ public class BookController extends AbstractController {
         return bookFacade.deleteBook(id);
     }
 
+    @JsonView(View.Books.class)
     @GetMapping(value = "/books", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<BookDTO> findAllBooks() {
         LOGGER.info("Finding all books.");

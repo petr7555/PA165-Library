@@ -16,6 +16,22 @@ export const fetchUsers = async () => {
     }
 }
 
+export const fetchBooks = async () => {
+    try {
+        const response = await fetch("http://localhost:8080/pa165/rest/books");
+        let books = await response.json();
+        books = books.map((book) => {
+            return {
+                ...book,
+                key: book.id
+            }
+        })
+        return books;
+    } catch (error) {
+        message.error(error.message());
+    }
+}
+
 const createBook = async (book) => {
     try {
         await fetch("http://localhost:8080/pa165/rest/books", {
@@ -39,18 +55,6 @@ const deleteBook = async (book) => {
             method: "DELETE"
         })
         message.success('Book has been removed successfully.');
-    } catch (error) {
-        message.error(error.message());
-    }
-}
-
-const getLoansForUser = async (id) => {
-    try {
-        let url = new URL('http://localhost:8080/pa165/rest/singleLoans');
-        url.searchParams.set('userId', id);
-        const response = await fetch(url);
-        message.success('Loans were fetched.');
-        return response.json();
     } catch (error) {
         message.error(error.message());
     }

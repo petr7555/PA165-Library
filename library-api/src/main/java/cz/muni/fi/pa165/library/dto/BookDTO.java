@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -9,13 +12,16 @@ import java.util.Objects;
  * Represents book on FE.
  */
 public class BookDTO {
+    @JsonView({View.Users.class, View.Books.class})
     private long id;
-
+    @JsonView({View.Users.class, View.Books.class})
     private String title;
-
+    @JsonView({View.Users.class, View.Books.class})
     private String author;
-
+    @JsonView({View.Users.class, View.Books.class})
     private boolean available;
+    @JsonView(View.Books.class)
+    private Collection<SingleLoanDTO> singleLoans;
 
     public long getId() {
         return id;
@@ -47,6 +53,14 @@ public class BookDTO {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public Collection<SingleLoanDTO> getSingleLoans() {
+        return singleLoans;
+    }
+
+    public void setSingleLoans(Collection<SingleLoanDTO> singleLoans) {
+        this.singleLoans = singleLoans;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.library.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
+import cz.muni.fi.pa165.library.dto.View;
 import cz.muni.fi.pa165.library.facade.SingleLoanFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,7 @@ public class SingleLoanController extends AbstractController {
         this.singleLoanFacade = singleLoanFacade;
     }
 
+    @JsonView(View.Users.class)
     @GetMapping(value = "/singleLoans", params = "userId", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SingleLoanDTO> findForUser(@RequestParam long userId) {
         LOGGER.info("Finding single loans for user with id {}.", userId);

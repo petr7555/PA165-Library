@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -9,10 +12,16 @@ import java.util.Objects;
  * Represents user on FE. The user has a list of his single loans.
  */
 public class UserDTO {
+    @JsonView({View.Users.class, View.Books.class})
     private long id;
+    @JsonView({View.Users.class, View.Books.class})
     private String firstName;
+    @JsonView({View.Users.class, View.Books.class})
     private String lastName;
+    @JsonView({View.Users.class, View.Books.class})
     private String email;
+    @JsonView(View.Users.class)
+    private Collection<SingleLoanDTO> singleLoans;
 
     public long getId() {
         return id;
@@ -46,6 +55,13 @@ public class UserDTO {
         this.email = email;
     }
 
+    public Collection<SingleLoanDTO> getSingleLoans() {
+        return singleLoans;
+    }
+
+    public void setSingleLoans(Collection<SingleLoanDTO> singleLoans) {
+        this.singleLoans = singleLoans;
+    }
 
     @Override
     public boolean equals(Object o) {

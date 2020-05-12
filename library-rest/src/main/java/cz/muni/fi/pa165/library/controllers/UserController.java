@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.library.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.muni.fi.pa165.library.dto.UserDTO;
+import cz.muni.fi.pa165.library.dto.View;
 import cz.muni.fi.pa165.library.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ public class UserController extends AbstractController {
         this.userFacade = userFacade;
     }
 
+    @JsonView(View.Users.class)
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserDTO> findAllUsers() {
         LOGGER.info("Finding all users.");

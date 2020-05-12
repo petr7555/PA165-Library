@@ -1,5 +1,9 @@
 package cz.muni.fi.pa165.library.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,10 +14,15 @@ import java.util.Objects;
  * Represents single loan on FE. It connects book, user and a date when it was borrowed and returned.
  */
 public class SingleLoanDTO {
+    @JsonView({View.Users.class, View.Books.class})
     private long id;
+    @JsonView(View.Users.class)
     private BookDTO book;
+    @JsonView(View.Books.class)
     private UserDTO user;
+    @JsonView({View.Users.class, View.Books.class})
     private LocalDateTime borrowedAt;
+    @JsonView({View.Users.class, View.Books.class})
     private LocalDateTime returnedAt;
 
     public long getId() {

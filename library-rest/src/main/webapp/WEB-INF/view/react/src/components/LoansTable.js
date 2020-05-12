@@ -5,6 +5,7 @@ import { useStores } from "../stores/useStores";
 import { observer, useObserver } from "mobx-react-lite";
 
 export default function LoansTable(props) {
+    console.log(props.loans);
     const columns = [
         {
             title: 'Title',
@@ -40,5 +41,5 @@ export default function LoansTable(props) {
         },
     ];
 
-    return <Table columns={columns} dataSource={props.loans}/>;
+    return <Table columns={columns} dataSource={props.loans} {...props.other}/>;
 };
