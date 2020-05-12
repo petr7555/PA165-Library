@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Input, Space, Table, } from 'antd';
 import { useObserver } from "mobx-react-lite";
-import LoansTable from "../LoansTable";
+import LoansTableForUser from "../LoansTableForUser";
 import { fetchUsers } from "../../api/apiCalls";
 import { MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import Highlighter from "react-highlight-words";
@@ -142,7 +142,7 @@ export default function Users() {
     }
 
     const expandRow = (id) => {
-        return <LoansTable loans={getSingleLoansForUser(id)} other={{pagination: false, size: "medium"}}/>
+        return <LoansTableForUser loans={getSingleLoansForUser(id)} other={{pagination: false, size: "medium"}}/>
     }
 
     const customExpandIcon = (props) => {

@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Input, Space, Table, } from 'antd';
 import { useObserver } from "mobx-react-lite";
-import LoansTable from "../LoansTable";
 import { fetchBooks } from "../../api/apiCalls";
 import { MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import Highlighter from "react-highlight-words";
+import LoansTableForBook from "../LoansTableForBook";
 
 export default function Books() {
     const [books, setBooks] = useState([]);
@@ -149,7 +149,7 @@ export default function Books() {
     }
 
     const expandRow = (id) => {
-        return <LoansTable loans={getSingleLoansForBook(id)} other={{pagination: false, size: "medium"}}/>
+        return <LoansTableForBook loans={getSingleLoansForBook(id)} other={{pagination: false, size: "medium"}}/>
     }
 
     const customExpandIcon = (props) => {

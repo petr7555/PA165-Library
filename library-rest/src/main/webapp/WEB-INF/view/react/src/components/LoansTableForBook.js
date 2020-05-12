@@ -4,18 +4,22 @@ import { Table } from 'antd';
 import { useStores } from "../stores/useStores";
 import { observer, useObserver } from "mobx-react-lite";
 
-export default function LoansTable(props) {
-    console.log(props.loans);
+export default function LoansTableForUser(props) {
     const columns = [
         {
-            title: 'Title',
-            dataIndex: ['book', 'title'],
-            key: 'title'
+            title: 'First name',
+            dataIndex: ['user', 'firstName'],
+            key: 'firstName'
         },
         {
-            title: 'Author',
-            dataIndex: ['book', 'author'],
-            key: 'author',
+            title: 'Last name',
+            dataIndex: ['user', 'lastName'],
+            key: 'lastName',
+        },
+        {
+            title: 'Email',
+            dataIndex: ['user', 'email'],
+            key: 'email',
         },
         {
             title: 'Borrowed at',

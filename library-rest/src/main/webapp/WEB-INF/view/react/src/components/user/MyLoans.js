@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { useStores } from "../../stores/useStores";
 import { useObserver } from "mobx-react-lite";
-import LoansTable from "../LoansTable";
+import LoansTableForUser from "../LoansTableForUser";
 
 export default function MyLoans() {
     let {userStore} = useStores();
@@ -13,7 +13,7 @@ export default function MyLoans() {
 
     return useObserver(() =>
         <div className="table">
-            <LoansTable loans={userStore.myLoans}/>
+            <LoansTableForUser loans={userStore.myLoans}/>
         </div>
     );
 };
