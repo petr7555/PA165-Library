@@ -10,7 +10,14 @@ export function createUserStore() {
 
         async fetchBooks() {
             const response = await fetch("http://localhost:8080/pa165/rest/books");
-            this.books = await response.json();
+            const books = await response.json();
+            this.books = books.map(item => {
+                return {
+                    ...item,
+                    available: item.available &&
+                        !this.booksInCart.some(bookInCart => bookInCart.id === item.id)
+                }
+            })
         },
 
         async fetchFullUserInfo(email) {
@@ -21,7 +28,6 @@ export function createUserStore() {
         },
 
         addToCart(book) {
-            new Date().getDate()
             this.booksInCart = [...this.booksInCart, book];
             this.books = this.books.map((item) => {
                 return {

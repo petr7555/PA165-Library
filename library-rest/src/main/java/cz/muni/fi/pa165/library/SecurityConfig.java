@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.library;
 
+import org.apache.catalina.filters.CorsFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,7 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -44,10 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/index*", "/build/static/**", "/*.js", "/*.json", "/*.ico")
                 .permitAll()
                 //TODO determine which endpoints are for user and which are for admin
-                .antMatchers("/pa165/rest/users").hasRole("ADMIN")
-                .antMatchers("/pa165/rest/*").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated()
-                .and().formLogin().successHandler(myAuthenticationSuccessHandler());
+                //TODO uncomment
+//                .antMatchers("/pa165/rest/users").hasAnyRole("ADMIN", "USER")
+//                .antMatchers("/pa165/rest/*").hasAnyRole("ADMIN", "USER")
+//                .anyRequest().authenticated()
+                .and().formLogin().successHandler(myAuthenticationSuccessHandler())
+                .and().logout().deleteCookies("authorities", "username");
 
 // For DB debugging
 //        http.authorizeRequests()
@@ -58,11 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }

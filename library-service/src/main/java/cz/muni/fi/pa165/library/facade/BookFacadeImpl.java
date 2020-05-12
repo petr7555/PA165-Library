@@ -52,7 +52,7 @@ public class BookFacadeImpl implements BookFacade {
             Book book = books.get(i);
             BookDTO bookDTO = bookDTOs.get(i);
             bookDTO.setAvailable(book.getSingleLoans().stream().allMatch(
-                    singleLoan -> singleLoan.getReturnedAt() == null || singleLoan.getReturnedAt().isBefore(LocalDateTime.now())));
+                    singleLoan -> singleLoan.getReturnedAt() != null && singleLoan.getReturnedAt().isBefore(LocalDateTime.now())));
         }
         return bookDTOs;
     }

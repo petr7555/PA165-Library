@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import { useStores } from "../stores/useStores";
+import { useStores } from "../../stores/useStores";
 import { observer, useObserver } from "mobx-react-lite";
 
 export default function SearchBooks() {
@@ -79,7 +79,6 @@ export default function SearchBooks() {
 
     const handleAddToCart = (book) => {
         userStore.addToCart(book);
-        console.log(userStore.books);
     }
 
     const columns = [

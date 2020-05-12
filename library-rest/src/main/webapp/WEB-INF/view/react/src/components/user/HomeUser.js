@@ -1,5 +1,5 @@
 import React from "react";
-import {Nav} from "./Nav";
+import {NavUser} from "./NavUser";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import MyLoans from "./MyLoans";
 import SearchBooks from "./SearchBooks";
@@ -9,7 +9,7 @@ export default function HomeUser() {
     return (
         <Router>
             <div>
-                <Nav/>
+                <NavUser/>
                 <Route path={["/search-books", "/"]} exact component={SearchBooks}/>
                 <Route path="/my-loans" component={MyLoans}/>
                 <Route path="/cart" component={Cart}/>

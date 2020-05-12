@@ -55,6 +55,7 @@ public class BookDTO {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
+                ", available=" + available +
                 '}';
     }
 
@@ -64,12 +65,13 @@ public class BookDTO {
         if (o == null || getClass() != o.getClass()) return false;
         BookDTO bookDTO = (BookDTO) o;
         return id == bookDTO.id &&
+                available == bookDTO.available &&
                 Objects.equals(title, bookDTO.title) &&
                 Objects.equals(author, bookDTO.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author);
+        return Objects.hash(id, title, author, available);
     }
 }

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 import Cookies from 'js-cookie';
-import HomeAdmin from "./components/HomeAdmin";
-import HomeUser from "./components/HomeUser";
+import HomeAdmin from "./components/admin/HomeAdmin";
+import HomeUser from "./components/user/HomeUser";
 import { useStores } from "./stores/useStores";
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
 
     useEffect(() => {
         userStore.fetchFullUserInfo(Cookies.get('username'));
-    },[])
+    }, [])
 
     return (
         <div className="App">

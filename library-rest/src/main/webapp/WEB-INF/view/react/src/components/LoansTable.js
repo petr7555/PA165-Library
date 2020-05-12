@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import { useStores } from "../stores/useStores";
-import { useObserver } from "mobx-react-lite";
+import { observer, useObserver } from "mobx-react-lite";
 
-export default function MyLoans() {
-    let {userStore} = useStores();
-
-    useEffect(()=>{
-        userStore.fetchMyLoans();
-    },[])
-
+export default function LoansTable(props) {
     const columns = [
         {
             title: 'Title',
@@ -35,7 +29,8 @@ export default function MyLoans() {
             dataIndex: '',
             key: 'returnedAt',
             render: (record) => (
-                record.returnedAt ? <span>{new Date(record.returnedAt).toDateString()}</span> : <span>not returned yet</span>
+                record.returnedAt ? <span>{new Date(record.returnedAt).toDateString()}</span> :
+                    <span>not returned yet</span>
             ),
         },
         {
@@ -45,9 +40,5 @@ export default function MyLoans() {
         },
     ];
 
-    return useObserver(() => (
-        <div className="table">
-            <Table columns={columns} dataSource={userStore.myLoans}/>
-        </div>
-    ));
+    return <Table columns={columns} dataSource={props.loans}/>;
 };
