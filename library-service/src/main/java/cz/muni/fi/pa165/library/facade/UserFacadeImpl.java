@@ -34,4 +34,10 @@ public class UserFacadeImpl implements UserFacade {
         LOGGER.info("Finding all users.");
         return mappingService.mapTo(userService.findAll(), UserDTO.class);
     }
+
+    @Override
+    public UserDTO findUserByEmail(String email) {
+        LOGGER.info("Finding user with email {}.", email);
+        return mappingService.mapTo(userService.findUserByEmail(email), UserDTO.class);
+    }
 }

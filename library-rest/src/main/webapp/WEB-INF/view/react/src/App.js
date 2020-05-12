@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 import Cookies from 'js-cookie';
@@ -8,12 +8,15 @@ import { useStores } from "./stores/useStores";
 
 export default function App() {
     const {userStore} = useStores();
-    userStore.username = Cookies.get('username');
     userStore.authorities = Cookies.get('authorities');
+
+    useEffect(() => {
+        userStore.fetchFullUserInfo(Cookies.get('username'));
+    },[])
 
     return (
         <div className="App">
-                {userStore.authorities === "ROLE_ADMIN" ? <HomeAdmin/> : <HomeUser/>}
+            {userStore.authorities === "ROLE_ADMIN" ? <HomeAdmin/> : <HomeUser/>}
         </div>
     );
 }

@@ -29,4 +29,8 @@ public class UserService {
         LOGGER.info("Finding all users.");
         return userRepository.findAll();
     }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

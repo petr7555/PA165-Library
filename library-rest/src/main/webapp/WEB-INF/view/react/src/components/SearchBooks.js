@@ -1,38 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Input, Space, Table } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import { useStores } from "../stores/useStores";
+import { observer, useObserver } from "mobx-react-lite";
 
-const dataInit = [
-    {
-        id: 1,
-        title: "Animal Farm",
-        author: "George Orwell",
-        available: true
-    },
-    {
-        id: 2,
-        title: "1984",
-        author: "George Orwell",
-        available: true
-    },
-    {
-        id: 3,
-        title: "Ostře sledované vlaky",
-        author: "Bohumil Hrabal",
-        available: false
-    }
-];
+export default function SearchBooks() {
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
 
-export default class SearchBooks extends React.Component {
-    state = {
-        data: dataInit,
-        searchText: '',
-        searchedColumn: '',
-    };
+    let {userStore} = useStores();
 
-    getColumnSearchProps = dataIndex => ({
+    useEffect(()=>{
+        userStore.fetchBooks();
+    },[])
+
+    const getColumnSearchProps = dataIndex => ({
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
             <div style={{padding: 8}}>
                 <Input
@@ -42,20 +26,20 @@ export default class SearchBooks extends React.Component {
                     placeholder={`Search ${dataIndex}`}
                     value={selectedKeys[0]}
                     onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                    onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
                     style={{width: 188, marginBottom: 8, display: 'block'}}
                 />
                 <Space>
                     <Button
                         type="primary"
-                        onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
                         icon={<SearchOutlined/>}
                         size="small"
                         style={{width: 90}}
                     >
                         Search
                     </Button>
-                    <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{width: 90}}>
+                    <Button onClick={() => handleReset(clearFilters)} size="small" style={{width: 90}}>
                         Reset
                     </Button>
                 </Space>
@@ -70,10 +54,10 @@ export default class SearchBooks extends React.Component {
             }
         },
         render: text =>
-            this.state.searchedColumn === dataIndex ? (
+            searchedColumn === dataIndex ? (
                 <Highlighter
                     highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
-                    searchWords={[this.state.searchText]}
+                    searchWords={[searchText]}
                     autoEscape
                     textToHighlight={text.toString()}
                 />
@@ -82,62 +66,51 @@ export default class SearchBooks extends React.Component {
             ),
     });
 
-    handleSearch = (selectedKeys, confirm, dataIndex) => {
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
-        this.setState({
-            searchText: selectedKeys[0],
-            searchedColumn: dataIndex,
-        });
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
     };
 
-    handleReset = clearFilters => {
+    const handleReset = clearFilters => {
         clearFilters();
-        this.setState({searchText: ''});
+        setSearchText('');
     };
 
-    handleAddToCart = (record) => {
-        console.log(record.id);
-        const newData =  this.state.data;
-        newData.forEach(book => {
-            if (book.id === record.id) {
-                book.available = false;
-            }
-        })
-        this.setState({
-            data: newData
-        });
-        // console.log(data);
+    const handleAddToCart = (book) => {
+        userStore.addToCart(book);
+        console.log(userStore.books);
     }
 
-    render() {
-        const columns = [
-            {
-                title: 'Title',
-                dataIndex: 'title',
-                key: 'title',
-                width: '40%',
-                ...this.getColumnSearchProps('title'),
-            },
-            {
-                title: 'Author',
-                dataIndex: 'author',
-                key: 'author',
-                width: '40%',
-                ...this.getColumnSearchProps('author'),
-            },
-            {
-                title: 'Action',
-                dataIndex: '',
-                key: 'x',
-                render: (record) => (
-                    record.available ? <Button onClick={()=>this.handleAddToCart(record)}>Add to cart</Button> : <Button disabled>Not available</Button>
-                ),
-            },
-        ];
-        return (
-            <div className="table">
-                <Table columns={columns} dataSource={this.state.data}/>
-            </div>
-        );
-    }
-}
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+            width: '40%',
+            ...getColumnSearchProps('title'),
+        },
+        {
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+            width: '40%',
+            ...getColumnSearchProps('author'),
+        },
+        {
+            title: 'Action',
+            dataIndex: '',
+            key: 'x',
+            render: (record) => (
+                record.available ? <Button onClick={()=>handleAddToCart(record)}>Add to cart</Button> :
+                    <Button disabled>Not available</Button>
+            ),
+        },
+    ];
+
+    return useObserver(() => (
+        <div className="table">
+            <Table columns={columns} dataSource={userStore.books}/>
+        </div>
+    ));
+};

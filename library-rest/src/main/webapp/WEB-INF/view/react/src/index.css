@@ -1,7 +1,13 @@
-.user-name {
+.user-email {
     padding-left: 10px;
 }
 
 .table {
     padding: 24px;
+}
+
+.button-submit-loan-request {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
 }

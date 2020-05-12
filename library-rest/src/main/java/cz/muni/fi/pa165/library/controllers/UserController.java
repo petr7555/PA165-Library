@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,5 +32,11 @@ public class UserController extends AbstractController {
     public List<UserDTO> findAllUsers() {
         LOGGER.info("Finding all users.");
         return userFacade.findAllUsers();
+    }
+
+    @GetMapping(value = "/users", params = "email", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO findUserByEmail(@RequestParam String email) {
+        LOGGER.info("Finding user with email {}.", email);
+        return userFacade.findUserByEmail(email);
     }
 }
