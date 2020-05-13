@@ -137,7 +137,7 @@ export default function Users() {
     }
 
     const getSingleLoansForUser = (id) => {
-        return users.find(user => user.id === id).singleLoans || [];
+        return users.find(user => user.id === id).singleLoans;
     }
 
     const expandRow = (id) => {

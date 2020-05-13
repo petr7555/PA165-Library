@@ -1,18 +1,54 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Button, Input, message, Popconfirm, Space, Table } from 'antd';
+import { Button, Form, Input, Popconfirm, Space, Table } from 'antd';
 import { useObserver } from "mobx-react-lite";
 import { createBook, deleteBook, fetchBooks } from "../../api/apiCalls";
 import { DeleteOutlined, FormOutlined, MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import Highlighter from "react-highlight-words";
 import LoansTableForBook from "./LoansTableForBook";
 
-const EditableCell = () => {
-    return <td>table data</td>
-}
+const EditableCell = ({
+                          editing,
+                          dataIndex,
+                          title,
+                          record,
+                          index,
+                          children,
+                          ...restProps
+                      }) => {
+    const inputNode = <Input/>;
+    return (
+        <td {...restProps}>
+            {editing ? (
+                <Form.Item
+                    name={dataIndex}
+                    style={{
+                        margin: 0,
+                    }}
+                    rules={[
+                        {
+                            required: true,
+                            message: `Please input ${title}!`,
+                        },
+                    ]}
+                >
+                    {inputNode}
+                </Form.Item>
+            ) : (
+                children
+            )}
+        </td>
+    );
+};
 
 export default function Books() {
     const [books, setBooks] = useState([]);
+
+    const [form] = Form.useForm();
+
+    useEffect(() => {
+        console.log(books);
+    }, [books])
 
     const fetchData = async () => {
         const books = await fetchBooks();
@@ -113,12 +149,14 @@ export default function Books() {
             title: 'Title',
             dataIndex: 'title',
             key: 'title',
+            editable: true,
             ...getColumnSearchProps('title'),
         },
         {
             title: 'Author',
             dataIndex: 'author',
             key: 'author',
+            editable: true,
             ...getColumnSearchProps('author'),
         },
         {
@@ -145,7 +183,7 @@ export default function Books() {
             key: 'showHistory',
             render: (record) => {
                 if (record.id === -1) {
-                    return <Button type="primary" onClick={() => handleAdd(record)}>Add book</Button>
+                    return <Button type="primary" onClick={() => handleAdd()}>Add book</Button>
                 } else {
                     return <Button onClick={() => handleRowExpand(record)}
                                    disabled={getSingleLoansForBook(record.id).length === 0}>Show history</Button>
@@ -154,12 +192,11 @@ export default function Books() {
         },
     ];
 
-    const handleAdd = (book) => {
-        if (book.id != null && book.title != null) {
-            createBook(book);
-        } else {
-            message.warning("All fields must be set.")
-        }
+    const handleAdd = async () => {
+        const row = await form.validateFields();
+        form.resetFields();
+        await createBook(row);
+        await fetchData();
     }
 
     const [expandedRows, setExpandedRows] = useState([]);
@@ -171,7 +208,7 @@ export default function Books() {
     }
 
     const getSingleLoansForBook = (id) => {
-        return books.find(book => book.id === id).singleLoans || [];
+        return books.find(book => book.id === id).singleLoans;
     }
 
     const expandRow = (id) => {
@@ -189,25 +226,41 @@ export default function Books() {
         }
     }
 
-    const components = {
-        body: {
-            cell: EditableCell,
-        },
-    };
+    const mergedColumns = columns.map(col => {
+        if (!col.editable) {
+            return col;
+        }
+
+        return {
+            ...col,
+            onCell: record => ({
+                record,
+                dataIndex: col.dataIndex,
+                title: col.title,
+                editing: record.id === -1,
+            }),
+        };
+    });
 
     return useObserver(() => (
         <div className="table">
-            <Table
-                components={components}
-                columns={columns}
-                dataSource={[...books, {id: -1}]}
-                expandable={{
-                    expandIcon: (props) => customExpandIcon(props),
-                    onExpand: (expanded, record) => handleRowExpand(record),
-                    expandedRowKeys: expandedRows,
-                    expandedRowRender: record => expandRow(record.id)
-                }}
-            />
+            <Form form={form} component={false}>
+                <Table
+                    components={{
+                        body: {
+                            cell: EditableCell,
+                        },
+                    }}
+                    columns={mergedColumns}
+                    dataSource={[...books, {id: -1}]}
+                    expandable={{
+                        expandIcon: (props) => customExpandIcon(props),
+                        onExpand: (expanded, record) => handleRowExpand(record),
+                        expandedRowKeys: expandedRows,
+                        expandedRowRender: record => expandRow(record.id)
+                    }}
+                />
+            </Form>
         </div>
     ));
 };
