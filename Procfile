@@ -1,0 +1,1 @@
+web: java -jar library-rest/target/myapp.jar
