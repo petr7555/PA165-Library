@@ -1,1 +1,1 @@
-web: java -jar library-rest/target/library-rest.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar library-rest/target/library-rest.jar
