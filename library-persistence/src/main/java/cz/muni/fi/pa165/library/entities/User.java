@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.library.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Collection<SingleLoan> singleLoans;
+    private Collection<SingleLoan> singleLoans = new ArrayList<>();
 
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)

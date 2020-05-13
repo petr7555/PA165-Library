@@ -7,7 +7,6 @@ import { fetchUsers } from "../../api/apiCalls";
 import { MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import Highlighter from "react-highlight-words";
 
-
 export default function Users() {
     const [users, setUsers] = useState([]);
 
@@ -138,7 +137,7 @@ export default function Users() {
     }
 
     const getSingleLoansForUser = (id) => {
-        return users.find(user => user.id === id).singleLoans;
+        return users.find(user => user.id === id).singleLoans || [];
     }
 
     const expandRow = (id) => {

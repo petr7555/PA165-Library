@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.library.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class BookDTO {
     @JsonView({View.Users.class, View.Books.class})
     private boolean available;
     @JsonView(View.Books.class)
-    private Collection<SingleLoanDTO> singleLoans;
+    private Collection<SingleLoanDTO> singleLoans = new ArrayList<>();
 
     public long getId() {
         return id;

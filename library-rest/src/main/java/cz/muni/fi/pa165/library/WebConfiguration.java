@@ -18,9 +18,9 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**")
+                .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
     }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/{spring:\\w+}")

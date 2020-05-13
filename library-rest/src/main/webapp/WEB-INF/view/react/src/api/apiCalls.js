@@ -12,7 +12,7 @@ export const fetchUsers = async () => {
         })
         return users;
     } catch (error) {
-        message.error(error.message());
+        message.error(error.message);
     }
 }
 
@@ -28,11 +28,11 @@ export const fetchBooks = async () => {
         })
         return books;
     } catch (error) {
-        message.error(error.message());
+        message.error(error.message);
     }
 }
 
-const createBook = async (book) => {
+export const createBook = async (book) => {
     try {
         await fetch("http://localhost:8080/pa165/rest/books", {
             method: "POST",
@@ -41,21 +41,21 @@ const createBook = async (book) => {
             },
             body: JSON.stringify(book)
         })
-        message.success('Book has been added successfully.');
+        message.success('The book has been added.');
     } catch (error) {
-        message.error(error.message());
+        message.error(error.message);
     }
 }
 
-const deleteBook = async (book) => {
+export const deleteBook = async (book) => {
     try {
         let url = new URL('http://localhost:8080/pa165/rest/books');
         url.searchParams.set('id', book.id);
         await fetch(url, {
             method: "DELETE"
         })
-        message.success('Book has been removed successfully.');
+        message.success('The book has been deleted.');
     } catch (error) {
-        message.error(error.message());
+        message.error(error.message);
     }
 }

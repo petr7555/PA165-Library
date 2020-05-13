@@ -70,7 +70,7 @@ export function createUserStore() {
                 message.success('Loan request has been submitted.');
                 this.booksInCart = [];
             } catch (error) {
-                message.error(error.message());
+                message.error(error.message);
             }
         },
 

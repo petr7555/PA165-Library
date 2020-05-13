@@ -1,20 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Button, Input, Space, Table, } from 'antd';
+import { Button, Input, message, Popconfirm, Space, Table } from 'antd';
 import { useObserver } from "mobx-react-lite";
-import { fetchBooks } from "../../api/apiCalls";
-import { MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
+import { createBook, deleteBook, fetchBooks } from "../../api/apiCalls";
+import { DeleteOutlined, FormOutlined, MehOutlined, SearchOutlined, SmileOutlined } from '@ant-design/icons';
 import Highlighter from "react-highlight-words";
-import LoansTableForBook from "../LoansTableForBook";
+import LoansTableForBook from "./LoansTableForBook";
+
+const EditableCell = () => {
+    return <td>table data</td>
+}
 
 export default function Books() {
     const [books, setBooks] = useState([]);
 
+    const fetchData = async () => {
+        const books = await fetchBooks();
+        setBooks(books);
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            const books = await fetchBooks();
-            setBooks(books);
-        }
         fetchData();
     }, [])
 
@@ -98,6 +103,11 @@ export default function Books() {
         setSearchText("");
     };
 
+    function confirm(book) {
+        deleteBook(book).then(() => fetchData());
+
+    }
+
     const columns = [
         {
             title: 'Title',
@@ -112,29 +122,45 @@ export default function Books() {
             ...getColumnSearchProps('author'),
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
-            ...getColumnSearchProps('email'),
-        },
-        {
             title: '',
             dataIndex: '',
             key: 'delete',
-            render: (record) => (
-                <Button onClick={() => handleRowExpand(record)}>Delete</Button>
-            ),
+            render: (record) => {
+                if (record.id === -1) {
+                    return null;
+                } else {
+                    return (
+                        <Popconfirm placement="bottom" title="Are you sure to delete this book?" onConfirm={() => {
+                            confirm(record);
+                        }}
+                                    okText="Yes" cancelText="No">
+                            <a href="#"><DeleteOutlined/></a>
+                        </Popconfirm>);
+                }
+            }
         },
         {
             title: '',
             dataIndex: '',
             key: 'showHistory',
-            render: (record) => (
-                <Button onClick={() => handleRowExpand(record)}
-                        disabled={getSingleLoansForBook(record.id).length === 0}>Show history</Button>
-            ),
+            render: (record) => {
+                if (record.id === -1) {
+                    return <Button type="primary" onClick={() => handleAdd(record)}>Add book</Button>
+                } else {
+                    return <Button onClick={() => handleRowExpand(record)}
+                                   disabled={getSingleLoansForBook(record.id).length === 0}>Show history</Button>
+                }
+            },
         },
     ];
+
+    const handleAdd = (book) => {
+        if (book.id != null && book.title != null) {
+            createBook(book);
+        } else {
+            message.warning("All fields must be set.")
+        }
+    }
 
     const [expandedRows, setExpandedRows] = useState([]);
 
@@ -145,7 +171,7 @@ export default function Books() {
     }
 
     const getSingleLoansForBook = (id) => {
-        return books.find(book => book.id === id).singleLoans;
+        return books.find(book => book.id === id).singleLoans || [];
     }
 
     const expandRow = (id) => {
@@ -154,18 +180,27 @@ export default function Books() {
 
     const customExpandIcon = (props) => {
         const iconStyle = {fontSize: '24px', color: '#08c'};
-        if (props.expanded) {
+        if (props.record.id === -1) {
+            return <FormOutlined style={iconStyle}/>
+        } else if (props.expanded) {
             return <SmileOutlined style={iconStyle}/>
         } else {
             return <MehOutlined style={iconStyle}/>
         }
     }
 
+    const components = {
+        body: {
+            cell: EditableCell,
+        },
+    };
+
     return useObserver(() => (
         <div className="table">
             <Table
+                components={components}
                 columns={columns}
-                dataSource={books}
+                dataSource={[...books, {id: -1}]}
                 expandable={{
                     expandIcon: (props) => customExpandIcon(props),
                     onExpand: (expanded, record) => handleRowExpand(record),
