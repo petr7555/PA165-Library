@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
-import { useStores } from "../../stores/useStores";
-import { observer, useObserver } from "mobx-react-lite";
 
 export default function LoansTableForUser(props) {
     const columns = [

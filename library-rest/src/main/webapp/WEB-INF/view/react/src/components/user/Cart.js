@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
-import { Button, Input, Space, Table } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button, Table } from 'antd';
 import { useStores } from "../../stores/useStores";
-import { observer, useObserver } from "mobx-react-lite";
+import { useObserver } from "mobx-react-lite";
 
 export default function Cart() {
     let {userStore} = useStores();
@@ -35,7 +33,7 @@ export default function Cart() {
             dataIndex: '',
             key: 'x',
             render: (record) => (
-                <Button onClick={()=>handleRemoveFromCart(record)}>Remove</Button>
+                <Button onClick={() => handleRemoveFromCart(record)}>Remove</Button>
             ),
         },
     ];
@@ -43,7 +41,8 @@ export default function Cart() {
     return useObserver(() => (
         <div className="table">
             <Table columns={columns} dataSource={userStore.booksInCart} emptyText='No Books'/>
-            <Button className="button-submit-loan-request" disabled={userStore.booksInCart.length===0} onClick={()=>handleSubmit()} type="primary">Submit loan request</Button>
+            <Button className="button-submit-loan-request" disabled={userStore.booksInCart.length === 0}
+                    onClick={() => handleSubmit()} type="primary">Submit loan request</Button>
         </div>
     ));
 };

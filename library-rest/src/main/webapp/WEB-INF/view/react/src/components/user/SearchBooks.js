@@ -9,9 +9,9 @@ import { useObserver } from "mobx-react-lite";
 export default function SearchBooks() {
     let {userStore} = useStores();
 
-    useEffect(()=>{
+    useEffect(() => {
         userStore.fetchBooks();
-    },[])
+    }, [])
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -25,7 +25,7 @@ export default function SearchBooks() {
                              confirm,
                              clearFilters
                          }) => (
-            <div style={{ padding: 8 }}>
+            <div style={{padding: 8}}>
                 <Input
                     ref={searchInput}
                     placeholder={`Search ${dataIndex}`}
@@ -34,22 +34,22 @@ export default function SearchBooks() {
                         setSelectedKeys(e.target.value ? [e.target.value] : [])
                     }
                     onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                    style={{ width: 188, marginBottom: 8, display: "block" }}
+                    style={{width: 188, marginBottom: 8, display: "block"}}
                 />
                 <Space>
                     <Button
                         type="primary"
                         onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        icon={<SearchOutlined />}
+                        icon={<SearchOutlined/>}
                         size="small"
-                        style={{ width: 90 }}
+                        style={{width: 90}}
                     >
                         Search
                     </Button>
                     <Button
                         onClick={() => handleReset(clearFilters)}
                         size="small"
-                        style={{ width: 90 }}
+                        style={{width: 90}}
                     >
                         Reset
                     </Button>
@@ -57,7 +57,7 @@ export default function SearchBooks() {
             </div>
         ),
         filterIcon: filtered => (
-            <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+            <SearchOutlined style={{color: filtered ? "#1890ff" : undefined}}/>
         ),
         onFilter: (value, record) =>
             record[dataIndex]
@@ -72,7 +72,7 @@ export default function SearchBooks() {
         render: text =>
             searchedColumn === dataIndex ? (
                 <Highlighter
-                    highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+                    highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
                     searchWords={[searchText]}
                     autoEscape
                     textToHighlight={text.toString()}
@@ -117,7 +117,7 @@ export default function SearchBooks() {
             dataIndex: '',
             key: 'x',
             render: (record) => (
-                record.available ? <Button onClick={()=>handleAddToCart(record)}>Add to cart</Button> :
+                record.available ? <Button onClick={() => handleAddToCart(record)}>Add to cart</Button> :
                     <Button disabled>Not available</Button>
             ),
         },

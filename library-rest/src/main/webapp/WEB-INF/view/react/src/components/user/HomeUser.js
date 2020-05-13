@@ -1,6 +1,6 @@
 import React from "react";
-import {NavUser} from "./NavUser";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import { NavUser } from "./NavUser";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import MyLoans from "./MyLoans";
 import SearchBooks from "./SearchBooks";
 import Cart from "./Cart";
