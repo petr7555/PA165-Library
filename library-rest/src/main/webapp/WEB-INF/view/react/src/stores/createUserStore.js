@@ -75,6 +75,10 @@ export function createUserStore() {
         },
 
         async fetchMyLoans() {
+            if (this.user.id === undefined) {
+                setTimeout(() => this.fetchMyLoans(), 100);
+                return [];
+            }
             let url = new URL('http://localhost:8080/pa165/rest/singleLoans');
             url.searchParams.set('userId', this.user.id);
             const response = await fetch(url);

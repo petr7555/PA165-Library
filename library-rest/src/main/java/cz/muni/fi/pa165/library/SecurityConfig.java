@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.library;
 
-import org.apache.catalina.filters.CorsFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,13 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -53,19 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/index*", "/build/static/**", "/*.js", "/*.json", "/*.ico")
                 .permitAll()
                 //TODO determine which endpoints are for user and which are for admin
-                //TODO uncomment
-//                .antMatchers("/pa165/rest/users").hasAnyRole("ADMIN", "USER")
-//                .antMatchers("/pa165/rest/*").hasAnyRole("ADMIN", "USER")
-//                .anyRequest().authenticated()
+                .antMatchers("/pa165/rest/users").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/pa165/rest/*").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
                 .and().formLogin().successHandler(myAuthenticationSuccessHandler())
                 .and().logout().deleteCookies("authorities", "username");
 
-// For DB debugging
-//        http.authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/h2-console/**").permitAll();
-//        http.csrf().disable();
-//        http.headers().frameOptions().disable();
+        // For DB debugging
+        //        http.authorizeRequests()
+        //                .antMatchers("/").permitAll()
+        //                .antMatchers("/h2-console/**").permitAll();
+        //        http.csrf().disable();
+        //        http.headers().frameOptions().disable();
     }
 
     @Bean
