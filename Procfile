@@ -1,1 +1,1 @@
-web: java -jar library-rest/target/library-rest-0.0.1-SNAPSHOT.jar
+web: java -jar library-rest/target/library-rest.jar
