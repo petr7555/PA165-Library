@@ -1,6 +1,6 @@
 # PA165-Library
 
-The app is running on [Heroku](https://pa165-library.herokuapp.com/).
+The app is running on [Heroku](https://pa165-library.herokuapp.com/) (it might take a while to start because the app goes to sleep when it is not used).
 
 See the project's GitHub wiki at https://github.com/petr7555/PA165-Library/wiki
 
