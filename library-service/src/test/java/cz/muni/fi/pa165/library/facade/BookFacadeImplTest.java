@@ -6,26 +6,19 @@ import cz.muni.fi.pa165.library.entities.SingleLoan;
 import cz.muni.fi.pa165.library.entities.User;
 import cz.muni.fi.pa165.library.services.BookService;
 import cz.muni.fi.pa165.library.services.MappingService;
-import org.hamcrest.Matcher;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static cz.muni.fi.pa165.library.Utils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.when;
 
 /**
@@ -65,7 +58,7 @@ class BookFacadeImplTest {
     }
 
     /**
-     * Tests that availability is set properly.
+     * Tests that 'availability' attribute of book is set properly.
      */
     @Test
     void findAllBooks() {
@@ -86,7 +79,7 @@ class BookFacadeImplTest {
 
         book1.setSingleLoans(List.of(book1returnedYesterday, book1notReturnedYet));
 
-        SingleLoan book2Returned= createSingleLoan(book2, user);
+        SingleLoan book2Returned = createSingleLoan(book2, user);
         book2Returned.setBorrowedAt(yesterday);
         book2Returned.setReturnedAt(yesterday.plusHours(1));
 

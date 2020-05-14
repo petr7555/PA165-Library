@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 /**
  * @author Petr Janik 485122
  * @since 28.04.2020
+ * <p>
+ * Sets session and cookies after successful authentication.
  */
 public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(MySimpleUrlAuthenticationSuccessHandler.class);

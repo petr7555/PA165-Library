@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.library.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.time.LocalDateTime;

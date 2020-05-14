@@ -16,6 +16,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
+ * @author Petr Janik 485122
+ * @since 28.04.2020
+ * <p>
  * A service for basic Spring Security authentication.
  */
 @Service

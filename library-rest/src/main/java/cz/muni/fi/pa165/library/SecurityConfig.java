@@ -18,7 +18,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-
+/**
+ * @author Petr Janik 485122
+ * @since 28.04.2020
+ * <p>
+ * Sets security of the application.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

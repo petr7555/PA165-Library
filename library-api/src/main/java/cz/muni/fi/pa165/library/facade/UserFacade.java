@@ -12,5 +12,6 @@ import java.util.List;
  */
 public interface UserFacade {
     List<UserDTO> findAllUsers();
+
     UserDTO findUserByEmail(String email);
 }

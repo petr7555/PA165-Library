@@ -5,6 +5,9 @@ package cz.muni.fi.pa165.library.dto;
  * @since 12.05.2020
  */
 public class View {
-    public interface Books {}
-    public interface Users {}
+    public interface Books {
+    }
+
+    public interface Users {
+    }
 }

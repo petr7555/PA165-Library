@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author Petr Janik 485122
  * @since 28.04.2020
- *
+ * <p>
  * A magic 🙌 class. This makes sure that "/" redirects to index.html,
  * and that when the URL is refreshed the page does not break.
  * This is required for React.
@@ -21,6 +21,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
     }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/{spring:\\w+}")
