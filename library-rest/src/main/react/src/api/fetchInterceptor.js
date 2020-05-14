@@ -3,6 +3,7 @@ import fetchIntercept from 'fetch-intercept';
 export const unregister = fetchIntercept.register({
     request: function (url, config) {
         // Modify the url or config here
+        // If running locally, map URLs to the value of REACT_APP_SERVER
         if (process.env.REACT_APP_SERVER && url.startsWith("/pa165/rest")) {
             url = process.env.REACT_APP_SERVER + url;
         }
