@@ -9,7 +9,7 @@ export function createUserStore() {
         myLoans: [],
 
         async fetchBooks() {
-            const response = await fetch("http://localhost:8080/pa165/rest/books");
+            const response = await fetch("/pa165/rest/books");
             const books = await response.json();
             this.books = books.map(item => {
                 return {
@@ -21,9 +21,7 @@ export function createUserStore() {
         },
 
         async fetchFullUserInfo(email) {
-            let url = new URL('http://localhost:8080/pa165/rest/users');
-            url.searchParams.set('email', email);
-            const response = await fetch(url);
+            const response = await fetch(`/pa165/rest/users?email=${email}`);
             this.user = await response.json();
         },
 
@@ -60,7 +58,7 @@ export function createUserStore() {
             });
             const loan = {singleLoans};
             try {
-                await fetch("http://localhost:8080/pa165/rest/loans", {
+                await fetch("/pa165/rest/loans", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -79,9 +77,7 @@ export function createUserStore() {
                 setTimeout(() => this.fetchMyLoans(), 100);
                 return [];
             }
-            let url = new URL('http://localhost:8080/pa165/rest/singleLoans');
-            url.searchParams.set('userId', this.user.id);
-            const response = await fetch(url);
+            const response = await fetch(`/pa165/rest/singleLoans?userId=${this.user.id}`);
             this.myLoans = await response.json();
         }
     }

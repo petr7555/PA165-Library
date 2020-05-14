@@ -46,10 +46,6 @@ export default function Books() {
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
-        console.log(books);
-    }, [books])
-
     const fetchData = async () => {
         const books = await fetchBooks();
         setBooks(books);

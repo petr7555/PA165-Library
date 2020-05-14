@@ -2,7 +2,7 @@ import { message } from "antd";
 
 export const fetchUsers = async () => {
     try {
-        const response = await fetch("http://localhost:8080/pa165/rest/users");
+        const response = await fetch("/pa165/rest/users");
         let users = await response.json();
         users = users.map((user) => {
             return {
@@ -18,7 +18,7 @@ export const fetchUsers = async () => {
 
 export const fetchBooks = async () => {
     try {
-        const response = await fetch("http://localhost:8080/pa165/rest/books");
+        const response = await fetch("/pa165/rest/books");
         let books = await response.json();
         books = books.map((book) => {
             return {
@@ -34,7 +34,7 @@ export const fetchBooks = async () => {
 
 export const createBook = async (book) => {
     try {
-        await fetch("http://localhost:8080/pa165/rest/books", {
+        await fetch("/pa165/rest/books", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -49,9 +49,7 @@ export const createBook = async (book) => {
 
 export const deleteBook = async (book) => {
     try {
-        let url = new URL('http://localhost:8080/pa165/rest/books');
-        url.searchParams.set('id', book.id);
-        await fetch(url, {
+        await fetch(`/pa165/rest/books?id=${book.id}`, {
             method: "DELETE"
         })
         message.success('The book has been deleted.');
