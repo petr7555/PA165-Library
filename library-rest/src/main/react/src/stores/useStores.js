@@ -1,14 +1,12 @@
 import React from 'react'
 import { useLocalStore } from 'mobx-react-lite'
 import { createUserStore } from "./createUserStore";
-import { createAdminStore } from "./createAdminStore"; // 6.x or mobx-react-lite@1.4.0
 
 const storeContext = React.createContext(null);
 
 export const StoreProvider = ({children}) => {
     const stores = {
         userStore: useLocalStore(createUserStore),
-        adminStore: useLocalStore(createAdminStore)
     }
     return <storeContext.Provider value={stores}>{children}</storeContext.Provider>
 }

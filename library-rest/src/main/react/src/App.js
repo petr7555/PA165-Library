@@ -6,11 +6,10 @@ import HomeAdmin from "./components/admin/HomeAdmin";
 import HomeUser from "./components/user/HomeUser";
 import { useStores } from "./stores/useStores";
 // do not remove
-import {unregister} from "./api/fetchInterceptor";
 
 export default function App() {
     const {userStore} = useStores();
-    userStore.authorities = Cookies.get('authorities');
+    userStore.authorities = (Cookies.get('authorities') && Cookies.get('authorities').split('-')) || [];
 
     useEffect(() => {
         userStore.fetchFullUserInfo(Cookies.get('username'));
@@ -18,7 +17,7 @@ export default function App() {
 
     return (
         <div className="App">
-            {userStore.authorities === "ROLE_ADMIN" ? <HomeAdmin/> : <HomeUser/>}
+            {userStore.authorities.includes('ROLE_ADMIN') ? <HomeAdmin/> : <HomeUser/>}
         </div>
     );
 }

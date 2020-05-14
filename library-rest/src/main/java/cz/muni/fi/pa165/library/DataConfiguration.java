@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.library;
 
-import cz.muni.fi.pa165.library.entities.Book;
-import cz.muni.fi.pa165.library.entities.Role;
-import cz.muni.fi.pa165.library.entities.User;
+import cz.muni.fi.pa165.library.entities.*;
 import cz.muni.fi.pa165.library.repositories.BookRepository;
+import cz.muni.fi.pa165.library.repositories.LoanRepository;
 import cz.muni.fi.pa165.library.repositories.RoleRepository;
 import cz.muni.fi.pa165.library.repositories.UserRepository;
 import org.springframework.boot.ApplicationRunner;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,44 +24,81 @@ import java.util.List;
 public class DataConfiguration {
 
     /**
-     * Create some books to start with.
+     * Populate DB with sample data.
      *
-     * @param bookRepository
-     * @return
-     */
-    @Bean
-    public ApplicationRunner bookInitializer(BookRepository bookRepository) {
-        return args -> bookRepository.saveAll(List.of(
-                new Book("Animal Farm", "George Orwell"),
-                new Book("1984", "George Orwell"),
-                new Book("Ostře sledované vlaky", "Bohumil Hrabal")
-        ));
-    }
-
-    /**
-     * Creates two users. One normal user and one admin.
-     *
-     * @param userRepository
      * @param roleRepository
+     * @param userRepository
+     * @param bookRepository
      * @param encoder
      * @return
      */
     @Bean
-    public ApplicationRunner userInitializer(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder) {
+    public ApplicationRunner dataInitializer(RoleRepository roleRepository, UserRepository userRepository,
+                                             BookRepository bookRepository, LoanRepository loanRepository,
+                                             PasswordEncoder encoder) {
         Role roleUser = new Role(Role.RoleType.USER);
         Role roleAdmin = new Role(Role.RoleType.ADMIN);
-        roleRepository.saveAll(List.of(
-                roleUser,
-                roleAdmin
-        ));
-        return args -> userRepository.saveAll(List.of(
-                new User("John", "Smith", "john.smith@email.cz",
-                        encoder.encode("john1234"), Collections.singletonList(roleUser)),
-                new User("Peter", "Griffin", "peter.griffin@gmail.com", encoder.encode("password"), List.of(roleUser, roleAdmin)),
-                new User("Ad", "Min", "admin",
-                        encoder.encode("admin"), List.of(roleUser, roleAdmin)),
-                new User("Us", "Er", "user",
-                        encoder.encode("user"), Collections.singletonList(roleUser)))
-        );
+
+        Book animalFarm = new Book("Animal Farm", "George Orwell");
+        Book nineteenEightyFour = new Book("Nineteen Eighty-Four", "George Orwell");
+        Book theJungleBook = new Book("The Jungle Book", "Rudyard Kipling");
+        Book romeoAndJuliet = new Book("Romeo and Juliet", "William Shakespeare");
+
+        User john = new User("John", "Smith", "john.smith@gmail.com",
+                encoder.encode("john1234"), Collections.singletonList(roleUser));
+        User peter = new User("Peter", "Griffin", "peter.griffin@gmail.com",
+                encoder.encode("password"), List.of(roleUser, roleAdmin));
+        User user = new User("Ad", "Min", "admin",
+                encoder.encode("admin"), List.of(roleUser, roleAdmin));
+        User admin = new User("Us", "Er", "user",
+                encoder.encode("user"), Collections.singletonList(roleUser));
+
+        LocalDateTime lastWeek = LocalDateTime.now().minusDays(7);
+
+        SingleLoan animalFarmReturnedYesterday = new SingleLoan();
+        animalFarmReturnedYesterday.setBook(animalFarm);
+        animalFarmReturnedYesterday.setUser(john);
+        animalFarmReturnedYesterday.setBorrowedAt(lastWeek);
+        animalFarmReturnedYesterday.setReturnedAt(lastWeek.plusDays(3));
+        animalFarmReturnedYesterday.setCondition("Minor scratches");
+
+        SingleLoan theJungleBookNotReturnedYet = new SingleLoan();
+        theJungleBookNotReturnedYet.setBook(theJungleBook);
+        theJungleBookNotReturnedYet.setUser(john);
+        theJungleBookNotReturnedYet.setBorrowedAt(lastWeek);
+        theJungleBookNotReturnedYet.setReturnedAt(null);
+        theJungleBookNotReturnedYet.setCondition(null);
+
+        LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
+
+        SingleLoan romeoAndJulietReturned = new SingleLoan();
+        romeoAndJulietReturned.setBook(romeoAndJuliet);
+        romeoAndJulietReturned.setUser(john);
+        romeoAndJulietReturned.setBorrowedAt(lastMonth);
+        romeoAndJulietReturned.setReturnedAt(lastMonth.plusDays(7));
+        romeoAndJulietReturned.setCondition("Perfect condition");
+
+        SingleLoan romeoAndJulietNotReturnedYet = new SingleLoan();
+        romeoAndJulietNotReturnedYet.setBook(romeoAndJuliet);
+        romeoAndJulietNotReturnedYet.setUser(peter);
+        romeoAndJulietNotReturnedYet.setBorrowedAt(lastWeek);
+        romeoAndJulietNotReturnedYet.setReturnedAt(null);
+        romeoAndJulietNotReturnedYet.setCondition(null);
+
+        Loan johnsLoan = new Loan();
+        johnsLoan.setSingleLoans(List.of(animalFarmReturnedYesterday, theJungleBookNotReturnedYet));
+
+        Loan johnsSecondLoan = new Loan();
+        johnsSecondLoan.setSingleLoans(List.of(romeoAndJulietReturned));
+
+        Loan petersLoan = new Loan();
+        petersLoan.setSingleLoans(List.of(romeoAndJulietNotReturnedYet));
+
+        return args -> {
+            roleRepository.saveAll(List.of(roleUser, roleAdmin));
+            userRepository.saveAll(List.of(john, peter, user, admin));
+            bookRepository.saveAll(List.of(animalFarm, nineteenEightyFour, theJungleBook, romeoAndJuliet));
+            loanRepository.saveAll(List.of(johnsLoan, johnsSecondLoan, petersLoan));
+        };
     }
 }

@@ -3,7 +3,7 @@ import { message } from "antd";
 export function createUserStore() {
     return {
         user: {},
-        authorities: "",
+        authorities: [],
         booksInCart: [],
         books: [],
         myLoans: [],

@@ -30,10 +30,11 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         session.setAttribute("username", authUser.getUsername());
         session.setAttribute("authorities", authentication.getAuthorities());
 
+        // for React frontend
         List<String> authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-
         Cookie username = new Cookie("username", authUser.getUsername());
-        Cookie authority = new Cookie("authorities", authorities.get(0));
+        String authoritiesString = String.join("-", authorities);
+        Cookie authority = new Cookie("authorities", authoritiesString);
         httpServletResponse.addCookie(username);
         httpServletResponse.addCookie(authority);
 

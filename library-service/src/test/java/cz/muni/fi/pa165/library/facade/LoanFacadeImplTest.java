@@ -49,13 +49,6 @@ class LoanFacadeImplTest {
         Loan loan = createLoanOfSingleLoans(List.of(singleLoan1, singleLoan2));
 
         when(loanService.createLoan(loan)).thenReturn(1L);
-        LoanDTO loanDTO = dtoCopyOfLoan(loan);
-        Loan loan1 = mappingService.mapTo(loanDTO, Loan.class);
-        boolean eq = loan1.equals(loan);
-        List<SingleLoan> singleLoans = (List<SingleLoan>) loan.getSingleLoans();
-        List<SingleLoan> singleLoans1 = (List<SingleLoan>) loan1.getSingleLoans();
-        boolean eq2 = singleLoans.get(0).equals(singleLoans1.get(0));
-        boolean eq3 = singleLoans.get(1).equals(singleLoans1.get(1));
 
         assertEquals(1, loanFacadeImpl.createLoan(dtoCopyOfLoan(loan)));
     }
