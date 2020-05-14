@@ -11,7 +11,7 @@ export default function UserIcon() {
         <>
             <Avatar shape="square" icon={<UserOutlined/>}/>
             <span className="user-email">{userStore.user.email}</span>
-            <a href="http://localhost:8080/logout"/>
+            <a href="/logout"/>
         </>
     );
 }
