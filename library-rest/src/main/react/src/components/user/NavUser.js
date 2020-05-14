@@ -13,16 +13,16 @@ export const NavUser = withRouter((props) => {
     return (
         <Observer>{() => (
             <div>
-                <Menu selectedKeys={[location.pathname === "/" ? "/search-books" : location.pathname]}
+                <Menu selectedKeys={[location.pathname === "/" ? "/search_books" : location.pathname]}
                       mode="horizontal">
-                    <Menu.Item key="/search-books">
-                        <Link to="/search-books">
+                    <Menu.Item key="/search_books">
+                        <Link to="/search_books">
                             <BookOutlined/>
                             <span>Search books</span>
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/my-loans">
-                        <Link to="/my-loans">
+                    <Menu.Item key="/my_loans">
+                        <Link to="/my_loans">
                             <FileOutlined/>
                             <span>My loans</span>
                         </Link>
