@@ -60,14 +60,14 @@ public class DataConfiguration {
         animalFarmReturnedYesterday.setUser(john);
         animalFarmReturnedYesterday.setBorrowedAt(lastWeek);
         animalFarmReturnedYesterday.setReturnedAt(lastWeek.plusDays(3));
-        animalFarmReturnedYesterday.setCondition("Minor scratches");
+        animalFarmReturnedYesterday.setReturnCondition("Minor scratches");
 
         SingleLoan theJungleBookNotReturnedYet = new SingleLoan();
         theJungleBookNotReturnedYet.setBook(theJungleBook);
         theJungleBookNotReturnedYet.setUser(john);
         theJungleBookNotReturnedYet.setBorrowedAt(lastWeek);
         theJungleBookNotReturnedYet.setReturnedAt(null);
-        theJungleBookNotReturnedYet.setCondition(null);
+        theJungleBookNotReturnedYet.setReturnCondition(null);
 
         LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
 
@@ -76,14 +76,14 @@ public class DataConfiguration {
         romeoAndJulietReturned.setUser(john);
         romeoAndJulietReturned.setBorrowedAt(lastMonth);
         romeoAndJulietReturned.setReturnedAt(lastMonth.plusDays(7));
-        romeoAndJulietReturned.setCondition("Perfect condition");
+        romeoAndJulietReturned.setReturnCondition("Perfect condition");
 
         SingleLoan romeoAndJulietNotReturnedYet = new SingleLoan();
         romeoAndJulietNotReturnedYet.setBook(romeoAndJuliet);
         romeoAndJulietNotReturnedYet.setUser(peter);
         romeoAndJulietNotReturnedYet.setBorrowedAt(lastWeek);
         romeoAndJulietNotReturnedYet.setReturnedAt(null);
-        romeoAndJulietNotReturnedYet.setCondition(null);
+        romeoAndJulietNotReturnedYet.setReturnCondition(null);
 
         Loan johnsLoan = new Loan();
         johnsLoan.setSingleLoans(List.of(animalFarmReturnedYesterday, theJungleBookNotReturnedYet));

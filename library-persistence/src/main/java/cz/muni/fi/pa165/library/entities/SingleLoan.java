@@ -32,7 +32,7 @@ public class SingleLoan {
 
     private LocalDateTime returnedAt;
 
-    private String condition;
+    private String returnCondition;
 
     public LocalDateTime getReturnedAt() {
         return returnedAt;
@@ -78,12 +78,12 @@ public class SingleLoan {
         this.id = id;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getReturnCondition() {
+        return returnCondition;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setReturnCondition(String condition) {
+        this.returnCondition = condition;
     }
 
     @Override
@@ -96,12 +96,12 @@ public class SingleLoan {
                 Objects.equals(user, that.user) &&
                 Objects.equals(borrowedAt, that.borrowedAt) &&
                 Objects.equals(returnedAt, that.returnedAt) &&
-                Objects.equals(condition, that.condition);
+                Objects.equals(returnCondition, that.returnCondition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, user, borrowedAt, returnedAt, condition);
+        return Objects.hash(id, book, user, borrowedAt, returnedAt, returnCondition);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class SingleLoan {
                 ", user=" + user +
                 ", borrowedAt=" + borrowedAt +
                 ", returnedAt=" + returnedAt +
-                ", condition='" + condition + '\'' +
+                ", condition='" + returnCondition + '\'' +
                 '}';
     }
 }

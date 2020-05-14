@@ -22,6 +22,8 @@ public class SingleLoanDTO {
     private LocalDateTime borrowedAt;
     @JsonView({View.Users.class, View.Books.class})
     private LocalDateTime returnedAt;
+    @JsonView({View.Users.class, View.Books.class})
+    private String returnCondition;
 
     public long getId() {
         return id;
@@ -63,6 +65,14 @@ public class SingleLoanDTO {
         this.returnedAt = returnedAt;
     }
 
+    public String getReturnCondition() {
+        return returnCondition;
+    }
+
+    public void setReturnCondition(String returnCondition) {
+        this.returnCondition = returnCondition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,22 +82,24 @@ public class SingleLoanDTO {
                 Objects.equals(book, that.book) &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(borrowedAt, that.borrowedAt) &&
-                Objects.equals(returnedAt, that.returnedAt);
+                Objects.equals(returnedAt, that.returnedAt) &&
+                Objects.equals(returnCondition, that.returnCondition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, book, user, borrowedAt, returnedAt);
+        return Objects.hash(id, book, user, borrowedAt, returnedAt, returnCondition);
     }
 
     @Override
     public String toString() {
-        return "SingleLoanDto{" +
+        return "SingleLoanDTO{" +
                 "id=" + id +
                 ", book=" + book +
                 ", user=" + user +
                 ", borrowedAt=" + borrowedAt +
                 ", returnedAt=" + returnedAt +
+                ", returnCondition='" + returnCondition + '\'' +
                 '}';
     }
 }
