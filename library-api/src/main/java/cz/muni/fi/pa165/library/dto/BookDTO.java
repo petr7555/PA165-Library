@@ -65,16 +65,6 @@ public class BookDTO {
     }
 
     @Override
-    public String toString() {
-        return "BookDTO{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", available=" + available +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -88,5 +78,15 @@ public class BookDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, author, available);
+    }
+
+    @Override
+    public String toString() {
+        return "BookDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", available=" + available +
+                '}';
     }
 }
