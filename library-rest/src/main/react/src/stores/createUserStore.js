@@ -10,6 +10,10 @@ export function createUserStore() {
 
         async fetchBooks() {
             const response = await fetch("/pa165/rest/books");
+            if (!response.ok) {
+                message.error("Couldn't fetch books.");
+                return;
+            }
             const books = await response.json();
             this.books = books.map(item => {
                 return {
@@ -22,6 +26,10 @@ export function createUserStore() {
 
         async fetchFullUserInfo(email) {
             const response = await fetch(`/pa165/rest/users?email=${email}`);
+            if (!response.ok) {
+                message.error("Couldn't fetch user info.");
+                return;
+            }
             this.user = await response.json();
         },
 
@@ -58,14 +66,14 @@ export function createUserStore() {
             });
             const loan = {singleLoans};
             try {
-                await fetch("/pa165/rest/loans", {
+                const response = await fetch("/pa165/rest/loans", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(loan)
                 })
-                message.success('Loan request has been submitted.');
+                response.ok ? message.success('Loan request has been submitted.') : message.error("The request couldn't be completed.");
                 this.booksInCart = [];
             } catch (error) {
                 message.error(error.message);
@@ -78,6 +86,10 @@ export function createUserStore() {
                 return [];
             }
             const response = await fetch(`/pa165/rest/singleLoans?userId=${this.user.id}`);
+            if (!response.ok) {
+                message.error("Couldn't fetch my loans.");
+                return;
+            }
             this.myLoans = await response.json();
         }
     }
