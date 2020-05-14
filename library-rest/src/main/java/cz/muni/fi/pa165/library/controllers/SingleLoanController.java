@@ -38,6 +38,7 @@ public class SingleLoanController extends AbstractController {
         return singleLoanFacade.findForUser(userId);
     }
 
+    @JsonView(View.Books.class)
     @GetMapping(value = "/singleLoans", params = "bookId", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<SingleLoanDTO> findForBook(@RequestParam long bookId) {
         LOGGER.info("Finding single loans for book with id {}.", bookId);

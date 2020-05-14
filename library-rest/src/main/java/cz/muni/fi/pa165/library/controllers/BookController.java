@@ -47,12 +47,14 @@ public class BookController extends AbstractController {
         return bookFacade.findAllBooks();
     }
 
+    @JsonView(View.Books.class)
     @GetMapping(value = "/books", params = "title", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<BookDTO> findByTitle(@RequestParam String title) {
         LOGGER.info("Finding all books containing {} in title.", title);
         return bookFacade.findByTitle(title);
     }
 
+    @JsonView(View.Books.class)
     @GetMapping(value = "/books", params = "author", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<BookDTO> findByAuthor(@RequestParam String author) {
         LOGGER.info("Finding all books containing {} as an author.", author);

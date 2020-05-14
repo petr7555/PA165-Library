@@ -37,6 +37,7 @@ public class UserController extends AbstractController {
         return userFacade.findAllUsers();
     }
 
+    @JsonView(View.Users.class)
     @GetMapping(value = "/users", params = "email", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO findUserByEmail(@RequestParam String email) {
         LOGGER.info("Finding user with email {}.", email);
