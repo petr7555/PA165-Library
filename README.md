@@ -1,6 +1,6 @@
 # PA165-Library
 
-The app is running on Heroku.
+The app is running on [Heroku](https://pa165-library.herokuapp.com/).
 
 See the project's GitHub wiki at https://github.com/petr7555/PA165-Library/wiki
 
