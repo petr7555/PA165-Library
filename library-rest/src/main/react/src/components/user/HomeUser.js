@@ -10,8 +10,8 @@ export default function HomeUser() {
         <Router>
             <div>
                 <NavUser/>
-                <Route path={["/search-books", "/"]} exact component={SearchBooks}/>
-                <Route path="/my-loans" component={MyLoans}/>
+                <Route path={["/search_books", "/"]} exact component={SearchBooks}/>
+                <Route path="/my_loans" component={MyLoans}/>
                 <Route path="/cart" component={Cart}/>
             </div>
         </Router>
