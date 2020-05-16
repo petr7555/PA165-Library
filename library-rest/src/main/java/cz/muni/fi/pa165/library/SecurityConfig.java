@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .regexMatchers(HttpMethod.GET, "/pa165/rest/users\\?email=.*").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST, "/pa165/rest/loans").hasAnyRole("ADMIN", "USER")
                 .regexMatchers(HttpMethod.GET, "/pa165/rest/singleLoans\\?userId=\\d+").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/pa165/rest/*").hasRole("ADMIN")
+                .antMatchers("/pa165/rest/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().successHandler(myAuthenticationSuccessHandler())
                 .and().logout().deleteCookies("authorities", "username");
