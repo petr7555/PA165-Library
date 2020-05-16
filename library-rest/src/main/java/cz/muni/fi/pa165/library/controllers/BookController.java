@@ -28,7 +28,7 @@ public class BookController extends AbstractController {
         this.bookFacade = bookFacade;
     }
 
-    @PostMapping(value = "/books", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/books", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public long createBook(@RequestBody BookDTO book) {
         LOGGER.info("Creating book {}.", book);
         return bookFacade.createBook(book);
