@@ -27,7 +27,7 @@ public class LoanController extends AbstractController {
         this.loanFacade = loanFacade;
     }
 
-    @PostMapping(value = "/loans", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/loans", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public long createLoan(@RequestBody LoanDTO loan) {
         LOGGER.info("Creating loan {}.", loan);
         return loanFacade.createLoan(loan);

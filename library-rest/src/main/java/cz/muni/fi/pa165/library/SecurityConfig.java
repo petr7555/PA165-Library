@@ -53,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         HttpMethod.GET,
                         "/index*", "/build/static/**", "/*.js", "/*.json", "/*.ico")
                 .permitAll()
-                //TODO determine which endpoints are for user and which are for admin
                 //comment the next 6 lines out for local development
                 .antMatchers(HttpMethod.GET, "/pa165/rest/books").hasAnyRole("ADMIN", "USER")
                 .regexMatchers(HttpMethod.GET, "/pa165/rest/users\\?email=.*").hasAnyRole("ADMIN", "USER")

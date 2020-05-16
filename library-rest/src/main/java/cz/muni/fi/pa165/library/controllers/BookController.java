@@ -34,7 +34,7 @@ public class BookController extends AbstractController {
         return bookFacade.createBook(book);
     }
 
-    @DeleteMapping(value = "/books", params = "id")
+    @DeleteMapping(value = "/books", params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
     public long deleteBook(@RequestParam long id) {
         LOGGER.info("Deleting book with id {}.", id);
         return bookFacade.deleteBook(id);
