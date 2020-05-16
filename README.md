@@ -16,3 +16,5 @@ Run FE:
 
 Run BE:
 * from folder `library-rest` run `mvn spring-boot:run`
+
+[Presentation](https://docs.google.com/presentation/d/1guReZ06l8OnDNLTPyGrTZ3cfEIyQ8Wz-0AIRIfOs3Bw/edit?usp=sharing)
