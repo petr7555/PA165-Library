@@ -18,5 +18,5 @@ Run BE:
 * from folder `library-rest` run `mvn spring-boot:run`
 
 ## Technologies
-![Technologies used](https://github.com/petr7555/PA165-Library/blob/master/docs/technologies.png)
+![Technologies used](https://github.com/petr7555/PA165-Library/blob/master/docs/technologies.PNG)
 [Presentation](https://docs.google.com/presentation/d/1guReZ06l8OnDNLTPyGrTZ3cfEIyQ8Wz-0AIRIfOs3Bw/edit?usp=sharing)
