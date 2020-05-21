@@ -13,7 +13,7 @@ Run application:
 * then either from folder `library-rest` run `mvn spring-boot:run`
   or from project root folder run `java -jar library-rest/target/library-rest.jar`
 
-There are two profiles:
+There are two maven profiles:
 * `prod` - builds frontend sources and creates fully working jar file
 * `dev` - skips building frontend sources
 
