@@ -9,6 +9,8 @@ See complete REST documentation [here](https://documenter.getpostman.com/view/93
 
 Run application:
 * from project root folder run `mvn clean install -DskipTests`
+* then from folder `library-rest` run `mvn spring-boot:run`
+
 
 ## Development:
 
