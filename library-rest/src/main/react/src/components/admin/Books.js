@@ -101,12 +101,13 @@ export default function Books() {
         filterIcon: filtered => (
             <SearchOutlined style={{color: filtered ? "#1890ff" : undefined}}/>
         ),
-        onFilter: (value, record) =>
-            record.id === -1 ||
-            record[dataIndex]
-                .toString()
-                .toLowerCase()
-                .includes(value.toLowerCase()),
+        onFilter: (value, record) => {
+            return record.id === -1 ||
+                record[dataIndex]
+                    .toString()
+                    .toLowerCase()
+                    .includes(value.toLowerCase())
+        },
         onFilterDropdownVisibleChange: visible => {
             if (visible) {
                 setTimeout(() => searchInput.current.focus());
@@ -118,7 +119,7 @@ export default function Books() {
                     highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
                     searchWords={[searchText]}
                     autoEscape
-                    textToHighlight={text.toString()}
+                    textToHighlight={text && text.toString()}
                 />
             ) : (
                 text
