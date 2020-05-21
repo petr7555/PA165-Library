@@ -31,7 +31,7 @@ export default function Cart() {
         {
             title: 'Action',
             dataIndex: '',
-            key: 'x',
+            key: 'remove',
             render: (record) => (
                 <Button onClick={() => handleRemoveFromCart(record)}>Remove</Button>
             ),

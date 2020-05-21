@@ -120,7 +120,7 @@ export default function Users() {
         {
             title: 'Action',
             dataIndex: '',
-            key: 'x',
+            key: 'showLoans',
             render: (record) => (
                 <Button onClick={() => handleRowExpand(record)}
                         disabled={getSingleLoansForUser(record.id).length === 0}>Show loans</Button>

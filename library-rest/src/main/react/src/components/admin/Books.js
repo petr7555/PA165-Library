@@ -102,6 +102,7 @@ export default function Books() {
             <SearchOutlined style={{color: filtered ? "#1890ff" : undefined}}/>
         ),
         onFilter: (value, record) =>
+            record.id === -1 ||
             record[dataIndex]
                 .toString()
                 .toLowerCase()

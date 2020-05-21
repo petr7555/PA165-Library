@@ -115,7 +115,7 @@ export default function SearchBooks() {
         {
             title: 'Action',
             dataIndex: '',
-            key: 'x',
+            key: 'addToCart',
             render: (record) => (
                 record.available ? <Button onClick={() => handleAddToCart(record)}>Add to cart</Button> :
                     <Button disabled>Not available</Button>
