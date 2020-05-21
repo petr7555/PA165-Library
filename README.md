@@ -11,7 +11,7 @@ Fisrt, log to the app in the browser. Copy your browser JSESSIONID Cookie and us
 Run application:
 * from project root folder run `mvn clean install -DskipTests`
 * then either from folder `library-rest` run `mvn spring-boot:run`
-  or from project root folder `java -jar library-rest/target/library-rest.jar`
+  or from project root folder run `java -jar library-rest/target/library-rest.jar`
 
 
 ## Development:
