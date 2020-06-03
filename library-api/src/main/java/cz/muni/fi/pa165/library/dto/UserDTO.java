@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.library.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * <p>
  * Represents user on FE. The user has a list of his single loans.
  */
-public class UserDTO {
+public class UserDTO implements Serializable {
     @JsonView({View.Users.class, View.Books.class})
     private long id;
     @JsonView({View.Users.class, View.Books.class})

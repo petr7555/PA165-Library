@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.library.dto;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ import java.util.Objects;
  * Represents Loan, which is multiple book single loans on FE.
  * Something like "order".
  */
-public class LoanDTO {
+public class LoanDTO implements Serializable {
     private long id;
     private Collection<SingleLoanDTO> singleLoans;
 
