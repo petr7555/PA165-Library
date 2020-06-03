@@ -1,6 +1,10 @@
 package cz.muni.fi.pa165.library.repositories;
 
-import cz.muni.fi.pa165.library.entities.*;
+import cz.muni.fi.pa165.library.entities.Book;
+import cz.muni.fi.pa165.library.entities.Loan;
+import cz.muni.fi.pa165.library.entities.Role;
+import cz.muni.fi.pa165.library.entities.SingleLoan;
+import cz.muni.fi.pa165.library.entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +14,11 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static cz.muni.fi.pa165.library.Utils.*;
+import static cz.muni.fi.pa165.library.Utils.createLoanOfSingleLoans;
+import static cz.muni.fi.pa165.library.Utils.createSingleLoan;
+import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
+import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
+import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;

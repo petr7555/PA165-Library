@@ -4,7 +4,11 @@ import cz.muni.fi.pa165.library.dto.BookDTO;
 import cz.muni.fi.pa165.library.dto.LoanDTO;
 import cz.muni.fi.pa165.library.dto.SingleLoanDTO;
 import cz.muni.fi.pa165.library.dto.UserDTO;
-import cz.muni.fi.pa165.library.entities.*;
+import cz.muni.fi.pa165.library.entities.Book;
+import cz.muni.fi.pa165.library.entities.Loan;
+import cz.muni.fi.pa165.library.entities.Role;
+import cz.muni.fi.pa165.library.entities.SingleLoan;
+import cz.muni.fi.pa165.library.entities.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

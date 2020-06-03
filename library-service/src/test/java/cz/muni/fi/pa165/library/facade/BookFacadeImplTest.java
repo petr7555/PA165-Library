@@ -15,7 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static cz.muni.fi.pa165.library.Utils.*;
+import static cz.muni.fi.pa165.library.Utils.createSingleLoan;
+import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
+import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
+import static cz.muni.fi.pa165.library.Utils.createTestBookGatsby;
+import static cz.muni.fi.pa165.library.Utils.createTestUser;
+import static cz.muni.fi.pa165.library.Utils.dtoCopyOfBook;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;

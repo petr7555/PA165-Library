@@ -11,7 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static cz.muni.fi.pa165.library.Utils.*;
+import static cz.muni.fi.pa165.library.Utils.createLoanOfSingleLoans;
+import static cz.muni.fi.pa165.library.Utils.createSingleLoan;
+import static cz.muni.fi.pa165.library.Utils.createTestBook1984;
+import static cz.muni.fi.pa165.library.Utils.createTestBookAnimalFarm;
+import static cz.muni.fi.pa165.library.Utils.createTestUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
