@@ -39,11 +39,11 @@ class BookFacadeImplTest {
     @Mock
     private BookService bookService;
 
-    private BookFacadeImpl bookFacadeImpl;
+    private BookFacade bookFacade;
 
     @BeforeEach
     public void setUp() {
-        bookFacadeImpl = new BookFacadeImpl(mappingService, bookService);
+        bookFacade = new BookFacadeImpl(mappingService, bookService);
     }
 
     @Test
@@ -53,13 +53,13 @@ class BookFacadeImplTest {
 
         BookDTO bookDTO = dtoCopyOfBook(book);
 
-        assertEquals(1, bookFacadeImpl.createBook(bookDTO));
+        assertEquals(1, bookFacade.createBook(bookDTO));
     }
 
     @Test
     void deleteBook() {
         when(bookService.deleteBook(1)).thenReturn(1L);
-        assertEquals(1, bookFacadeImpl.deleteBook(1));
+        assertEquals(1, bookFacade.deleteBook(1));
     }
 
     /**
@@ -101,7 +101,7 @@ class BookFacadeImplTest {
         BookDTO bookDTO3 = dtoCopyOfBook(book3);
         bookDTO3.setAvailable(true);
 
-        assertThat(bookFacadeImpl.findAllBooks(), containsInAnyOrder(bookDTO1, bookDTO2, bookDTO3));
+        assertThat(bookFacade.findAllBooks(), containsInAnyOrder(bookDTO1, bookDTO2, bookDTO3));
     }
 
     @Test
@@ -111,7 +111,7 @@ class BookFacadeImplTest {
 
         when(bookService.findByTitle("a")).thenReturn(List.of(book1, book3));
 
-        assertThat(bookFacadeImpl.findByTitle("a"), containsInAnyOrder(dtoCopyOfBook(book1), dtoCopyOfBook(book3)));
+        assertThat(bookFacade.findByTitle("a"), containsInAnyOrder(dtoCopyOfBook(book1), dtoCopyOfBook(book3)));
     }
 
     @Test
@@ -121,6 +121,6 @@ class BookFacadeImplTest {
 
         when(bookService.findByAuthor("george")).thenReturn(List.of(book1, book2));
 
-        assertThat(bookFacadeImpl.findByAuthor("george"), containsInAnyOrder(dtoCopyOfBook(book1), dtoCopyOfBook(book2)));
+        assertThat(bookFacade.findByAuthor("george"), containsInAnyOrder(dtoCopyOfBook(book1), dtoCopyOfBook(book2)));
     }
 }
