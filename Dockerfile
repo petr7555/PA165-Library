@@ -19,4 +19,4 @@ RUN addgroup --system javauser && adduser -S -s /bin/false -G javauser javauser
 RUN chown -R javauser:javauser /app
 USER javauser
 
-CMD "dumb-init" "java" "-jar" "java-application.jar"
+CMD "dumb-init" "java" "-Xmx512m" "-jar" "java-application.jar"
